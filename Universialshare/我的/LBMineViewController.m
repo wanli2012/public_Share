@@ -34,7 +34,7 @@
 #import "LBBelowTheLineViewController.h"
 #import "GLShoppingCartController.h"
 #import <SDWebImage/UIButton+WebCache.h>
-
+#import "LBMerchantSubmissionFourViewController.h"
 
 @interface LBMineViewController ()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>{
     UIImageView *_imageviewLeft;
@@ -144,7 +144,7 @@
             {
                 
                 self.hidesBottomBarWhenPushed=YES;
-                GLSubmitFirstController *vc=[[GLSubmitFirstController alloc]init];
+                LBMerchantSubmissionFourViewController *vc=[[LBMerchantSubmissionFourViewController alloc]init];
                 [self.navigationController pushViewController:vc animated:YES];
                 self.hidesBottomBarWhenPushed=NO;
                 

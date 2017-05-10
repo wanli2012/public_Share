@@ -9,18 +9,18 @@
 #import "LBMerchantSubmissionFourViewController.h"
 #import "MerchantInformationModel.h"
 
-@interface LBMerchantSubmissionFourViewController ()<UINavigationControllerDelegate, UIImagePickerControllerDelegate,UIActionSheetDelegate>
+@interface LBMerchantSubmissionFourViewController ()<UINavigationControllerDelegate, UIImagePickerControllerDelegate,UIActionSheetDelegate,UITextFieldDelegate>
 @property (weak, nonatomic) IBOutlet UIButton *submit;
 @property (weak, nonatomic) IBOutlet UIImageView *handImage;
-@property (weak, nonatomic) IBOutlet UIImageView *positiveImage;
-@property (weak, nonatomic) IBOutlet UIImageView *otherSideImage;
-@property (weak, nonatomic) IBOutlet UIImageView *licenseImage;
-@property (weak, nonatomic) IBOutlet UIImageView *undertakingOne;
-@property (weak, nonatomic) IBOutlet UIImageView *undertakingTwo;
-@property (weak, nonatomic) IBOutlet UIImageView *doorplateImage;
-@property (weak, nonatomic) IBOutlet UIImageView *DoorplateOneimage;
-@property (weak, nonatomic) IBOutlet UIImageView *InteriorImage;
-@property (weak, nonatomic) IBOutlet UIImageView *InteriorOneImage;
+@property (weak, nonatomic) IBOutlet UIImageView *positiveImage;//身份证正面照
+@property (weak, nonatomic) IBOutlet UIImageView *otherSideImage;//身份证正面照
+@property (weak, nonatomic) IBOutlet UIImageView *licenseImage;//营业执照
+@property (weak, nonatomic) IBOutlet UIImageView *undertakingOne;//商家承诺书
+@property (weak, nonatomic) IBOutlet UIImageView *undertakingTwo;//推广员承诺书
+@property (weak, nonatomic) IBOutlet UIImageView *doorplateImage;//店铺招牌
+@property (weak, nonatomic) IBOutlet UIImageView *DoorplateOneimage;//店铺环境照1
+@property (weak, nonatomic) IBOutlet UIImageView *InteriorImage;//店铺环境照2
+@property (weak, nonatomic) IBOutlet UIImageView *InteriorOneImage;//店铺环境照3
 @property (weak, nonatomic) IBOutlet UIView *baseview;
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *contentW;
@@ -28,6 +28,37 @@
 
 @property (assign, nonatomic)NSInteger tapIndex;//判断点击的是那个图片
 @property (strong, nonatomic)LoadWaitView *loadV;
+
+@property (weak, nonatomic) IBOutlet UIView *StoreNameV;
+@property (weak, nonatomic) IBOutlet UIView *codeView;
+@property (weak, nonatomic) IBOutlet UIView *mapView;
+@property (weak, nonatomic) IBOutlet UIView *numbersView;
+@property (weak, nonatomic) IBOutlet UIView *nameView;
+@property (weak, nonatomic) IBOutlet UIView *phoneView;
+@property (weak, nonatomic) IBOutlet UIView *connectNameV;
+@property (weak, nonatomic) IBOutlet UIView *connectPhoneV;
+@property (weak, nonatomic) IBOutlet UIView *storeTypeV;
+
+@property (weak, nonatomic) IBOutlet UITextField *storeName;//店名
+//营业执照
+@property (weak, nonatomic) IBOutlet UITextField *codeTf;
+//地图
+@property (weak, nonatomic) IBOutlet UILabel *maplb;
+//门牌
+@property (weak, nonatomic) IBOutlet UITextField *doorNumbersTf;
+//法人姓名
+@property (weak, nonatomic) IBOutlet UITextField *bossNametf;
+//法人电话
+@property (weak, nonatomic) IBOutlet UITextField *bossPhoneTf;
+//联系人名字
+@property (weak, nonatomic) IBOutlet UITextField *connectName;
+//联系人电话
+@property (weak, nonatomic) IBOutlet UITextField *connectPhoneTf;
+//店铺类型一
+@property (weak, nonatomic) IBOutlet UILabel *industryOneLb;
+//店铺类型二
+@property (weak, nonatomic) IBOutlet UILabel *industrySecLb;
+
 
 @end
 
@@ -37,8 +68,19 @@
     [super viewDidLoad];
     
     self.navigationItem.title = @"提交商户";
-    
+     self.navigationController.navigationBar.hidden = NO;
 }
+//点击地图
+- (IBAction)tapgestureMap:(UITapGestureRecognizer *)sender {
+}
+//选择一类行业
+- (IBAction)chooseIndustryFirst:(UITapGestureRecognizer *)sender {
+}
+//选择二类行业
+- (IBAction)chooseIndustrySecond:(UITapGestureRecognizer *)sender {
+}
+
+
 //手持身份证
 - (IBAction)tapgesturehandimage:(UITapGestureRecognizer *)sender {
     _tapIndex = 1;
@@ -144,14 +186,19 @@
         [MBProgressHUD showError:@"请上传商家承诺书"];
         return;
     }
+    if (!self.undertakingTwo.image || [UIImagePNGRepresentation(self.undertakingTwo.image) isEqual:UIImagePNGRepresentation([UIImage imageNamed:@"照片框-拷贝-9"])]) {
+        [MBProgressHUD showError:@"请上传推广员承诺书"];
+        return;
+    }
+    
     if (!self.doorplateImage.image || [UIImagePNGRepresentation(self.doorplateImage.image) isEqual:UIImagePNGRepresentation([UIImage imageNamed:@"照片框-拷贝-10"])]) {
-        [MBProgressHUD showError:@"请上传门头照"];
+        [MBProgressHUD showError:@"请上传店铺招牌"];
         return;
     }
     
     
     if ([UIImagePNGRepresentation(self.InteriorImage.image) isEqual:UIImagePNGRepresentation([UIImage imageNamed:@"照片框-拷贝-12"])] || [UIImagePNGRepresentation(self.InteriorOneImage.image) isEqual:UIImagePNGRepresentation([UIImage imageNamed:@"照片框-拷贝-13"])]  || [UIImagePNGRepresentation(self.DoorplateOneimage.image) isEqual:UIImagePNGRepresentation([UIImage imageNamed:@"内景2-拷贝"])]) {
-        [MBProgressHUD showError:@"请上传门头照"];
+        [MBProgressHUD showError:@"请上传店铺环境照"];
         return;
     }
     
@@ -349,8 +396,47 @@
         
     }
 }
+#pragma mark -- textfileddelegete
+-(BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
+    
+    if (textField == self.storeName && [string isEqualToString:@"\n"]) {
+        [self.codeTf becomeFirstResponder];
+        return NO;
+        
+    }else if (textField == self.codeTf && [string isEqualToString:@"\n"]){
+        
+        [self.doorNumbersTf becomeFirstResponder];
+        return NO;
+    }else if (textField == self.doorNumbersTf && [string isEqualToString:@"\n"]){
+        
+        [self.bossNametf becomeFirstResponder];
+        return NO;
+    }else if (textField == self.bossNametf && [string isEqualToString:@"\n"]){
+        
+        [self.bossPhoneTf becomeFirstResponder];
+        return NO;
+    }else if (textField == self.bossPhoneTf && [string isEqualToString:@"\n"]){
+        
+        [self.connectNameV becomeFirstResponder];
+        return NO;
+    }else if (textField == self.connectNameV && [string isEqualToString:@"\n"]){
+        
+        [self.connectPhoneV becomeFirstResponder];
+        return NO;
+    }else if (textField == self.connectPhoneV && [string isEqualToString:@"\n"]){
+        
+        [self.view endEditing:YES];
+        return NO;
+    }
+    
+    return YES;
+    
+}
 
+-(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
 
+    [self.view endEditing:YES];
+}
 
 -(void)updateViewConstraints{
     [super updateViewConstraints];
@@ -361,8 +447,35 @@
     self.baseview.layer.cornerRadius = 4;
     self.baseview.clipsToBounds = YES;
     
+    self.StoreNameV.layer.cornerRadius = 4;
+    self.StoreNameV.clipsToBounds = YES;
+    
+    self.codeView.layer.cornerRadius = 4;
+    self.codeView.clipsToBounds = YES;
+    
+    self.mapView.layer.cornerRadius = 4;
+    self.mapView.clipsToBounds = YES;
+    
+    self.numbersView.layer.cornerRadius = 4;
+    self.numbersView.clipsToBounds = YES;
+    
+    self.nameView.layer.cornerRadius = 4;
+    self.nameView.clipsToBounds = YES;
+    
+    self.phoneView.layer.cornerRadius = 4;
+    self.phoneView.clipsToBounds = YES;
+    
+    self.connectNameV.layer.cornerRadius = 4;
+    self.connectNameV.clipsToBounds = YES;
+    
+    self.connectPhoneV.layer.cornerRadius = 4;
+    self.connectPhoneV.clipsToBounds = YES;
+    
+    self.storeTypeV.layer.cornerRadius = 4;
+    self.storeTypeV.clipsToBounds = YES;
+    
     self.contentW.constant = SCREEN_WIDTH;
-    self.contentH.constant = 830;
+    self.contentH.constant = 1350;
 
 
 }

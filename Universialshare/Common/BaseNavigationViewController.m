@@ -19,7 +19,7 @@
     
     self.navigationBar.barTintColor = YYSRGBColor(40, 150, 58, 1);
     self.navigationBar.tintColor=[UIColor whiteColor];
-//    self.navigationBarHidden = YES;
+    //self.navigationBarHidden = NO;
     
     [self.navigationBar setTitleTextAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:17],NSForegroundColorAttributeName:[UIColor whiteColor]}];
     

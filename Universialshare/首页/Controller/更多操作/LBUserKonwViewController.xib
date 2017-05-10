@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LBUserKonwViewController">
+            <connections>
+                <outlet property="tableview" destination="SKJ-ZA-f18" id="gPh-1x-zE1"/>
+                <outlet property="titleLb" destination="GcI-3A-ced" id="aXV-IV-5IA"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view autoresizesSubviews="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Zjo-bE-csR">
+                    <rect key="frame" x="0.0" y="65" width="375" height="50"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="用户须知" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GcI-3A-ced">
+                            <rect key="frame" x="0.0" y="15" width="375" height="20"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="20" id="0c6-b3-Qpl"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <color key="textColor" red="0.86666666670000003" green="0.039215686270000001" blue="0.090196078430000007" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="trailing" secondItem="GcI-3A-ced" secondAttribute="trailing" id="0lM-ye-uyF"/>
+                        <constraint firstItem="GcI-3A-ced" firstAttribute="centerY" secondItem="Zjo-bE-csR" secondAttribute="centerY" id="Gjl-Tg-hoR"/>
+                        <constraint firstItem="GcI-3A-ced" firstAttribute="leading" secondItem="Zjo-bE-csR" secondAttribute="leading" id="fqW-CC-q7k"/>
+                        <constraint firstAttribute="height" constant="50" id="pKe-MF-GQs"/>
+                    </constraints>
+                </view>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="SKJ-ZA-f18">
+                    <rect key="frame" x="0.0" y="115" width="375" height="552"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="AKr-Rc-2ol"/>
+                        <outlet property="delegate" destination="-1" id="g12-O2-oxY"/>
+                    </connections>
+                </tableView>
+            </subviews>
+            <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="Zjo-bE-csR" secondAttribute="trailing" id="5Bd-RJ-QKN"/>
+                <constraint firstAttribute="bottom" secondItem="SKJ-ZA-f18" secondAttribute="bottom" id="Aqe-ij-I2s"/>
+                <constraint firstItem="Zjo-bE-csR" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="KFM-TV-YzI"/>
+                <constraint firstItem="SKJ-ZA-f18" firstAttribute="top" secondItem="Zjo-bE-csR" secondAttribute="bottom" id="cZU-Ub-Mfl"/>
+                <constraint firstItem="Zjo-bE-csR" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="65" id="dSt-67-851"/>
+                <constraint firstAttribute="trailing" secondItem="SKJ-ZA-f18" secondAttribute="trailing" id="mo2-ff-qtl"/>
+                <constraint firstItem="SKJ-ZA-f18" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="nZo-k1-RqV"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+        </view>
+    </objects>
+</document>

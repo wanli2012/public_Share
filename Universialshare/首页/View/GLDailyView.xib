@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16D30" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="GLDailyView">
+            <rect key="frame" x="0.0" y="0.0" width="334" height="248"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="善心日值" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jh7-Oa-bb2">
+                    <rect key="frame" x="140.5" y="5" width="53.5" height="17"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                    <color key="shadowColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="激励日期:2017-02-19" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5yF-5h-6Oi">
+                    <rect key="frame" x="116.5" y="27" width="101" height="12"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="iZJ-FR-rTF">
+                    <rect key="frame" x="0.0" y="49" width="334" height="199"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <connections>
+                        <outlet property="dataSource" destination="iN0-l3-epB" id="462-K9-47p"/>
+                        <outlet property="delegate" destination="iN0-l3-epB" id="fag-SW-Q2W"/>
+                    </connections>
+                </tableView>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="5yF-5h-6Oi" firstAttribute="centerX" secondItem="Jh7-Oa-bb2" secondAttribute="centerX" id="8Xc-5e-Mtn"/>
+                <constraint firstItem="iZJ-FR-rTF" firstAttribute="top" secondItem="5yF-5h-6Oi" secondAttribute="bottom" constant="10" id="GOy-P0-lvt"/>
+                <constraint firstItem="Jh7-Oa-bb2" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="5" id="LD4-bk-VqS"/>
+                <constraint firstAttribute="trailing" secondItem="iZJ-FR-rTF" secondAttribute="trailing" id="Lns-Me-OHI"/>
+                <constraint firstItem="Jh7-Oa-bb2" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="Yul-CP-946"/>
+                <constraint firstItem="iZJ-FR-rTF" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="aXx-Y7-sYa"/>
+                <constraint firstItem="5yF-5h-6Oi" firstAttribute="top" secondItem="Jh7-Oa-bb2" secondAttribute="bottom" constant="5" id="dvP-hG-MtL"/>
+                <constraint firstAttribute="bottom" secondItem="iZJ-FR-rTF" secondAttribute="bottom" id="vlw-zz-vGY"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="tableView" destination="iZJ-FR-rTF" id="j7N-eo-3Ve"/>
+            </connections>
+            <point key="canvasLocation" x="29" y="-151"/>
+        </view>
+    </objects>
+</document>

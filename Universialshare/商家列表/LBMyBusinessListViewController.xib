@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LBMyBusinessListViewController">
+            <connections>
+                <outlet property="bottomH" destination="KO6-Nd-1f1" id="ZM6-oY-Bsf"/>
+                <outlet property="navgationView" destination="jYm-2J-71d" id="uNN-NN-lZ5"/>
+                <outlet property="navigationH" destination="r1n-Z6-rn5" id="WyZ-Jy-W8R"/>
+                <outlet property="tableview" destination="ZNi-Ia-xCg" id="Cbc-q8-pJA"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view autoresizesSubviews="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ZNi-Ia-xCg">
+                    <rect key="frame" x="0.0" y="64" width="375" height="554"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="mpr-WW-gOZ"/>
+                        <outlet property="delegate" destination="-1" id="3qN-UB-Map"/>
+                    </connections>
+                </tableView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jYm-2J-71d">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="64"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="商家列表" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z37-32-sBj">
+                            <rect key="frame" x="10" y="34" width="355" height="20"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="20" id="ifc-xl-UDU"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" red="0.14404621719999999" green="0.60565376280000005" blue="0.14635491370000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="bottom" secondItem="z37-32-sBj" secondAttribute="bottom" constant="10" id="PYM-d4-K1u"/>
+                        <constraint firstItem="z37-32-sBj" firstAttribute="leading" secondItem="jYm-2J-71d" secondAttribute="leading" constant="10" id="Poy-Gl-8Ke"/>
+                        <constraint firstAttribute="height" constant="64" id="r1n-Z6-rn5"/>
+                        <constraint firstAttribute="trailing" secondItem="z37-32-sBj" secondAttribute="trailing" constant="10" id="v0f-6m-ymj"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="0.93725490570000003" green="0.93725490570000003" blue="0.95686274770000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="jYm-2J-71d" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="428-eU-eKd"/>
+                <constraint firstAttribute="bottom" secondItem="ZNi-Ia-xCg" secondAttribute="bottom" constant="49" id="KO6-Nd-1f1"/>
+                <constraint firstAttribute="trailing" secondItem="ZNi-Ia-xCg" secondAttribute="trailing" id="Nuz-Lf-6cE"/>
+                <constraint firstItem="ZNi-Ia-xCg" firstAttribute="top" secondItem="jYm-2J-71d" secondAttribute="bottom" id="QLK-U4-6Js"/>
+                <constraint firstItem="jYm-2J-71d" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="ffO-7l-zRn"/>
+                <constraint firstAttribute="trailing" secondItem="jYm-2J-71d" secondAttribute="trailing" id="qBO-3x-U6Z"/>
+                <constraint firstItem="ZNi-Ia-xCg" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="wgg-wG-l8b"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="27.5" y="65.5"/>
+        </view>
+    </objects>
+</document>

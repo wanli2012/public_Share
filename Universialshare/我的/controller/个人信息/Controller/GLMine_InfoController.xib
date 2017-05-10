@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="GLMine_InfoController">
+            <connections>
+                <outlet property="codeImageV" destination="eCW-hX-9kg" id="02M-5y-JPz"/>
+                <outlet property="myLabel" destination="buo-xo-whp" id="BNw-cQ-FHM"/>
+                <outlet property="tableView" destination="xnM-mQ-xPh" id="gbe-Ew-nCk"/>
+                <outlet property="tableViewTop" destination="wh1-8J-Cko" id="zLh-Ah-7eJ"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view autoresizesSubviews="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="372" height="457"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="我的ID" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="buo-xo-whp">
+                    <rect key="frame" x="165" y="202" width="42.5" height="18"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                    <color key="shadowColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                </label>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="xnM-mQ-xPh">
+                    <rect key="frame" x="0.0" y="240" width="372" height="217"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                </tableView>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="eCW-hX-9kg">
+                    <rect key="frame" x="130" y="80" width="112" height="112"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="eCW-hX-9kg" secondAttribute="height" multiplier="1:1" id="bF5-pv-Jud"/>
+                    </constraints>
+                </imageView>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="eCW-hX-9kg" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="80" id="2Pc-eX-J34"/>
+                <constraint firstAttribute="bottom" secondItem="xnM-mQ-xPh" secondAttribute="bottom" id="2jl-9B-Qg8"/>
+                <constraint firstItem="xnM-mQ-xPh" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="BZd-P9-9RG"/>
+                <constraint firstItem="eCW-hX-9kg" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" multiplier="0.3" id="GvT-2k-Qd8"/>
+                <constraint firstItem="eCW-hX-9kg" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="H0N-8o-vwr"/>
+                <constraint firstItem="buo-xo-whp" firstAttribute="top" secondItem="eCW-hX-9kg" secondAttribute="bottom" constant="10" id="KCs-TT-IHe"/>
+                <constraint firstAttribute="trailing" secondItem="xnM-mQ-xPh" secondAttribute="trailing" id="tDg-5g-5YE"/>
+                <constraint firstItem="buo-xo-whp" firstAttribute="centerX" secondItem="eCW-hX-9kg" secondAttribute="centerX" id="uko-qs-zRJ"/>
+                <constraint firstItem="xnM-mQ-xPh" firstAttribute="top" secondItem="buo-xo-whp" secondAttribute="bottom" constant="20" id="wh1-8J-Cko"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="37" y="-352"/>
+        </view>
+    </objects>
+</document>

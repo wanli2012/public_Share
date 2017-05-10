@@ -44,7 +44,7 @@
     NSMutableAttributedString *textColor = [[NSMutableAttributedString alloc]initWithString:totalStr];
     NSRange rangel = [[textColor string] rangeOfString:remainBeans];
     [textColor addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:rangel];
-    [textColor addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:18] range:rangel];
+    [textColor addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:17] range:rangel];
     return textColor;
 }
 

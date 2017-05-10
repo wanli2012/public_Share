@@ -116,7 +116,7 @@ static NSString *ID = @"GLRecommendCell";
        
         [_loadV removeloadview];
         [self endRefresh];
-//        NSLog(@"%@",responseObject);
+        NSLog(@"%@",responseObject);
         if ([responseObject[@"code"] integerValue] == 1) {
             
             for (NSDictionary *dict in responseObject[@"data"]) {

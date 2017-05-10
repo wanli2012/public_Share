@@ -104,6 +104,7 @@ static NSString *ID = @"GLRecommendRcordCell";
     [NetworkManager requestPOSTWithURLStr:@"user/rec_all_list" paramDic:dict finish:^(id responseObject) {
         [_loadV removeloadview];
          [self endRefresh];
+//        NSLog(@"%@",responseObject);
         if ([responseObject[@"code"] integerValue] == 1) {
             
             for (NSDictionary *dict in responseObject[@"data"]) {

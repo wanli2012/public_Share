@@ -26,7 +26,27 @@
     NSString *timeStr = [dateFormatter1 stringFromDate:currentDate];
     
     self.dateLabel.text = timeStr;
-    self.numberLabel.text = @"10";
-//    self.typeLabel.text = model.donatetype;
+    self.IDNumLabel.text = model.username;
+    
+    //身份
+//    if ([model.uid isEqualToString:OrdinaryUser]) {
+//        
+//        self.amountLabel.text = @"米家";
+//        
+//    }else if([model.uid isEqualToString:Retailer]){
+//        self.amountLabel.text = @"米商";
+//        
+//    }else if([model.uid isEqualToString:ONESALER]){
+//        self.amountLabel.text = @"副总";
+//        
+//    }else if([model.uid isEqualToString:TWOSALER]){
+//        self.amountLabel.text = @"高级推广员";
+//        
+//    }else{
+//        self.amountLabel.text = @"推广员";
+//    }
+
+    
 }
+
 @end

@@ -10,12 +10,12 @@
 
 @interface GLRecommendRecordModel : NSObject
 
-@property (nonatomic,copy)NSString *uid;//推荐人ID
+@property (nonatomic,copy)NSString *uid;//被推荐人身份
 
-@property (nonatomic,copy)NSString *usertype;
+//@property (nonatomic,copy)NSString *usertype;
 
-@property (nonatomic,copy)NSString *username;//真实姓名
+@property (nonatomic,copy)NSString *username;//被推荐人ID
 
-@property (nonatomic,copy)NSString *reg_time;//推荐时间
+@property (nonatomic,copy)NSString *regtime;//推荐时间
 
 @end

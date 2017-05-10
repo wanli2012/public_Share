@@ -1,5 +1,5 @@
 {
-  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "B6B48ADB123873418DD58325C563B349669A4867+++C42A456",
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "303DACA0942D215997D438503478D2514607120C+++7BB2BFD",
   "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
     "4fc9bdf8-104a-be4e-a35a-b556eee68135++9732+++CD8B9D0" : {
 
@@ -10,6 +10,7 @@
     "4882A41F5235555F9FBE2D31238E1C982662B292+++FD2BCB9" : 9223372036854775807,
     "4882A41F5235555F9FBE2D31238E1C982662B292+++8212BE3" : 9223372036854775807,
     "B6B48ADB123873418DD58325C563B349669A4867+++FFF464E" : 0,
+    "303DACA0942D215997D438503478D2514607120C+++7BB2BFD" : 9223372036854775807,
     "4fc9bdf8-104a-be4e-a35a-b556eee68135++9732+++CD8B9D0" : 0
   },
   "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "D69FBE5B-1C12-42BD-94B8-1ADD6AE21E79",
@@ -18,12 +19,18 @@
     "4882A41F5235555F9FBE2D31238E1C982662B292+++FD2BCB9" : "%E5%A4%A7%E4%BC%97%E5%85%B1%E4%BA%AB\/",
     "4882A41F5235555F9FBE2D31238E1C982662B292+++8212BE3" : "%E5%A4%A7%E4%BC%97%E5%85%B1%E4%BA%AB\/",
     "B6B48ADB123873418DD58325C563B349669A4867+++FFF464E" : "%E5%A4%A7%E4%BC%97%E5%85%B1%E4%BA%AB\/",
+    "303DACA0942D215997D438503478D2514607120C+++7BB2BFD" : "%E5%A4%A7%E4%BC%97%E5%85%B1%E4%BA%ABv1.0\/",
     "4fc9bdf8-104a-be4e-a35a-b556eee68135++9732+++CD8B9D0" : "Universialshare\/"
   },
   "DVTSourceControlWorkspaceBlueprintNameKey" : "Universialshare",
   "DVTSourceControlWorkspaceBlueprintVersion" : 204,
   "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "Universialshare.xcworkspace",
   "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/wanli2012\/public_Share.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "303DACA0942D215997D438503478D2514607120C+++7BB2BFD"
+    },
     {
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/gonglei277\/MassSharing.git",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",

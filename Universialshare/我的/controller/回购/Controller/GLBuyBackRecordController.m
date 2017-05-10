@@ -35,7 +35,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"回购记录";
+    self.title = @"兑换记录";
     self.view.backgroundColor = [UIColor whiteColor];
     _firstVC = [[GLBuyBackRecord_FinishController alloc]init];
     _secondVC = [[GLBuyBackRecord_ApplyController alloc]init];

@@ -118,10 +118,16 @@ static NSString *ID = @"GLOrderGoodsCell";
         
         [_loadV removeloadview];
 //        NSLog(@"dict = %@",dict);
-        NSLog(@"responseObject = %@",responseObject);
+//        NSLog(@"responseObject = %@",responseObject);
         if ([responseObject[@"code"] integerValue] == 1){
             
-            self.totalSumLabel.text = [NSString stringWithFormat:@"合计:¥%@",responseObject[@"data"][@"all_realy_price"]];
+            if([responseObject[@"data"][@"all_realy_price"] floatValue] > 10000){
+                
+                self.totalSumLabel.text = [NSString stringWithFormat:@"合计:¥%.2f万",[responseObject[@"data"][@"all_realy_price"] floatValue]/10000];
+            }else{
+                self.totalSumLabel.text = [NSString stringWithFormat:@"合计:¥%@",responseObject[@"data"][@"all_realy_price"]];
+            }
+            
             self.yunfeiLabel.text = [NSString stringWithFormat:@"%@",responseObject[@"data"][@"all_delivery"]];
             
             for (NSDictionary *dic in responseObject[@"data"][@"goods_list"]) {

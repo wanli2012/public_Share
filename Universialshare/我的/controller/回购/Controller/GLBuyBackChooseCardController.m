@@ -26,7 +26,6 @@
 @property (weak, nonatomic) IBOutlet UITextField *addressF;
 @property (weak, nonatomic) IBOutlet UISwitch *switchBtn;
 
-
 @end
 
 @implementation GLBuyBackChooseCardController
@@ -102,7 +101,6 @@
     return YES;
 }
 - (IBAction)ensureClick:(id)sender {
-    
     
     if (self.cardTextF.text == nil||self.cardTextF.text.length == 0) {
         [MBProgressHUD showError:@"请输入银行卡号"];

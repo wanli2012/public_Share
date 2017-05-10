@@ -173,16 +173,19 @@ static NSString *goodsCellID = @"GLIntegralGoodsCell";
     if (tap.view.tag == 11) {
         GLMallHotModel *model = self.hotModels[0];
         detailVC.goods_id = model.mall_id;
+        detailVC.type = 1;
         [self.navigationController pushViewController:detailVC animated:YES];
 
     }else if (tap.view.tag == 12){
         GLMallHotModel *model = self.hotModels[1];
         detailVC.goods_id = model.mall_id;
+        detailVC.type = 1;
         [self.navigationController pushViewController:detailVC animated:YES];
 
     }else if (tap.view.tag == 13){
         GLMallHotModel *model = self.hotModels[2];
         detailVC.goods_id = model.mall_id;
+        detailVC.type = 1;
         [self.navigationController pushViewController:detailVC animated:YES];
         
     }else{

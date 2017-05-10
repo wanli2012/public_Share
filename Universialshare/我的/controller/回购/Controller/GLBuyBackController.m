@@ -50,9 +50,7 @@
 
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 
-
 @property (weak, nonatomic) IBOutlet UIView *headView;
-
 
 @end
 
@@ -238,7 +236,7 @@
     [NetworkManager requestPOSTWithURLStr:@"user/getbank" paramDic:dict finish:^(id responseObject) {
         
         [_loadV removeloadview];
-//        NSLog(@"responseObject = %@",responseObject);
+        NSLog(@"responseObject = %@",responseObject);
         
         if ([responseObject[@"code"] integerValue] == 1){
             [self showBankInfo];
@@ -247,6 +245,7 @@
                 
                 self.cardNumLabel.text = responseObject[@"data"][0][@"number"];
                 self.cardStyleLabel.text = responseObject[@"data"][0][@"name"];
+//                [self.bankStyleImageV sd_setImageWithURL:[NSURL URLWithString:responseObject[@"data"][0][@"name"]] placeholderImage:[UIImage imageNamed:@"bank_nopicture"]];
                
                 for (NSDictionary *dic in responseObject[@"data"]) {
                     
@@ -254,6 +253,7 @@
                         
                         self.cardNumLabel.text = dic[@"number"];
                         self.cardStyleLabel.text = dic[@"name"];
+//                        [self.bankStyleImageV sd_setImageWithURL:[NSURL URLWithString:responseObject[@"data"][0][@"pic"]] placeholderImage:[UIImage imageNamed:@"bank_nopicture"]];
                     }
                     
                 }

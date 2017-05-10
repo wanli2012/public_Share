@@ -27,7 +27,7 @@
     
     self.dateLabel.text = timeStr;
     self.IDNumLabel.text = model.username;
-    
+    self.identityLabel.text = model.num;
     //身份
 //    if ([model.uid isEqualToString:OrdinaryUser]) {
 //        

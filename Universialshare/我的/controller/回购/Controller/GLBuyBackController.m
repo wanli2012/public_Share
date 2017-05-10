@@ -236,7 +236,7 @@
     [NetworkManager requestPOSTWithURLStr:@"user/getbank" paramDic:dict finish:^(id responseObject) {
         
         [_loadV removeloadview];
-        NSLog(@"responseObject = %@",responseObject);
+//        NSLog(@"responseObject = %@",responseObject);
         
         if ([responseObject[@"code"] integerValue] == 1){
             [self showBankInfo];

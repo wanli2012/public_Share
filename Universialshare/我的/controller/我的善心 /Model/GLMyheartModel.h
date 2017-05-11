@@ -14,15 +14,15 @@
 
 @property (nonatomic, copy)NSString *zjl;
 
-@property (nonatomic, copy)NSString *love;
-
 @property (nonatomic, copy)NSString *jl_love;
 
 @property (nonatomic, copy)NSString *end_love;
 
-@property (nonatomic, copy)NSString *end_bean;
-
-@property (nonatomic, copy)NSString *bean;
+//@property (nonatomic, copy)NSString *love;
+//
+//@property (nonatomic, copy)NSString *end_bean;
+//
+//@property (nonatomic, copy)NSString *bean;
 
 //@property (nonatomic, copy)NSString *tax;
 

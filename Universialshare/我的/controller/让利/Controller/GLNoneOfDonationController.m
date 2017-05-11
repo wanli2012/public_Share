@@ -21,7 +21,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *rangliLabel;
 @property (weak, nonatomic) IBOutlet UILabel *yirangliLabel;
 
-
 @property (nonatomic ,strong)NodataView *nodataV;
 
 @end
@@ -40,7 +39,7 @@ static NSString *ID = @"GLNoneOfDonationCell";
     
     if (!_nodataV) {
         _nodataV=[[NSBundle mainBundle]loadNibNamed:@"NodataView" owner:self options:nil].firstObject;
-        _nodataV.frame = CGRectMake(0, 114, SCREEN_WIDTH, SCREEN_HEIGHT - 114);
+        _nodataV.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT - 114);
     }
     return _nodataV;
     

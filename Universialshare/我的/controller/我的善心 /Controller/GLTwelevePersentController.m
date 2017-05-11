@@ -85,28 +85,7 @@ static NSString *ID = @"GLMine_MyHeartCell";
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     GLMine_MyHeartCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
     GLMyheartModel *model = self.models[indexPath.row];
-    if ([model.money rangeOfString:@"null"].location != NSNotFound) {
-        model.money = @"1970-01-01";
-    }
-    if ([model.zjl rangeOfString:@"null"].location != NSNotFound) {
-        model.zjl = @"1970-01-01";
-    }
-    if ([model.love rangeOfString:@"null"].location != NSNotFound) {
-        model.love = @"0.00";
-    }
-    if ([model.jl_love rangeOfString:@"null"].location != NSNotFound) {
-        model.jl_love = @"0.00";
-    }
-    if ([model.end_love rangeOfString:@"null"].location != NSNotFound) {
-        model.end_love = @"0.00";
-    }
-    if ([model.end_bean rangeOfString:@"null"].location != NSNotFound) {
-        model.end_bean = @"0.00";
-    }
-    if ([model.bean rangeOfString:@"null"].location != NSNotFound) {
-        model.bean = @"0.00";
-    }
-  
+
     cell.model = model;
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;

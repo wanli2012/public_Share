@@ -54,15 +54,15 @@
     }else{
         self.statusLabel.text = @" 未审核 ";
     }
-    
+    self.typeLabel.text = model.rl_type;
     //让利类型
-    if([model.status integerValue] == 0){
-        self.typeLabel.text = @"5%";
-    }else if ([model.status integerValue] == 1){
-        self.typeLabel.text = @"10%";
-    }else{
-        self.typeLabel.text = @"20%";
-    }
+//    if([model.rl_type integerValue] == 0){
+//        self.typeLabel.text = @"5%";
+//    }else if ([model.rl_type integerValue] == 1){
+//        self.typeLabel.text = @"10%";
+//    }else{
+//        self.typeLabel.text = @"20%";
+//    }
 }
 
 

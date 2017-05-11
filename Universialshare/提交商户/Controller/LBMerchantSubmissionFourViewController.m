@@ -11,6 +11,7 @@
 #import "LBAddrecomdManChooseAreaViewController.h"
 #import "editorMaskPresentationController.h"
 #import "LBBaiduMapViewController.h"
+#import "LBMineCenterChooseAreaViewController.h"
 
 @interface LBMerchantSubmissionFourViewController ()<UINavigationControllerDelegate, UIImagePickerControllerDelegate,UIActionSheetDelegate,UITextFieldDelegate,UIViewControllerTransitioningDelegate,UIViewControllerAnimatedTransitioning>
 {
@@ -44,6 +45,7 @@
 @property (weak, nonatomic) IBOutlet UIView *connectNameV;
 @property (weak, nonatomic) IBOutlet UIView *connectPhoneV;
 @property (weak, nonatomic) IBOutlet UIView *storeTypeV;
+@property (weak, nonatomic) IBOutlet UIView *chooseAdressV;
 
 @property (weak, nonatomic) IBOutlet UITextField *storeName;//店名
 //营业执照
@@ -64,7 +66,13 @@
 @property (weak, nonatomic) IBOutlet UILabel *industryOneLb;
 //店铺类型二
 @property (weak, nonatomic) IBOutlet UILabel *industrySecLb;
-
+//省市区地址
+@property (weak, nonatomic) IBOutlet UILabel *adressLb;
+//保存省市区
+@property (strong, nonatomic)NSString *provinceStrId;
+@property (strong, nonatomic)NSString *cityStrId;
+@property (strong, nonatomic)NSString *countryStrId;
+@property (strong, nonatomic)NSString *chooseType;//选择类型
 //店铺类别 需要的属性
 @property (nonatomic, strong)NSMutableArray *industryArr;
 @property (nonatomic, assign)NSInteger isChoseFirstClassify;//记录一级分类的第几行
@@ -84,6 +92,10 @@
     self.navigationItem.title = @"提交商户";
      self.navigationController.navigationBar.hidden = NO;
     [self getPickerData];
+    
+    self.provinceStrId = @"";
+    self.cityStrId = @"";
+    self.countryStrId = @"";
 }
 #pragma mark - get data
 - (void)getPickerData {
@@ -128,6 +140,7 @@
 }
 //选择一类行业
 - (IBAction)chooseIndustryFirst:(UITapGestureRecognizer *)sender {
+    self.chooseType = @"industry";
     LBAddrecomdManChooseAreaViewController *vc=[[LBAddrecomdManChooseAreaViewController alloc]init];
     
     if (self.industryArr.count != 0) {
@@ -151,6 +164,7 @@
 }
 //选择二类行业
 - (IBAction)chooseIndustrySecond:(UITapGestureRecognizer *)sender {
+    self.chooseType = @"industry";
     if ([self.industryOneLb.text isEqualToString:@"请选择一级行业分类"]) {
         [MBProgressHUD showError:@"请选择一级行业分类"];
         return;
@@ -183,6 +197,25 @@
         }
     
 }
+
+//选择省市区
+- (IBAction)chooseAdressEvent:(UITapGestureRecognizer *)sender {
+    self.chooseType = @"adress";
+    LBMineCenterChooseAreaViewController *vc=[[LBMineCenterChooseAreaViewController alloc]init];
+    vc.transitioningDelegate=self;
+    vc.modalPresentationStyle=UIModalPresentationCustom;
+    
+    [self presentViewController:vc animated:YES completion:nil];
+    __weak typeof(self) weakself = self;
+    vc.returnreslut = ^(NSString *str,NSString *strid,NSString *provinceid,NSString *cityd,NSString *areaid){
+        weakself.provinceStrId = strid;
+        weakself.adressLb.text = str;
+        weakself.cityStrId = cityd;
+        weakself.countryStrId = areaid;
+    };
+}
+
+
 
 //手持身份证
 - (IBAction)tapgesturehandimage:(UITapGestureRecognizer *)sender {
@@ -597,6 +630,9 @@
     self.storeTypeV.layer.cornerRadius = 4;
     self.storeTypeV.clipsToBounds = YES;
     
+    self.chooseAdressV.layer.cornerRadius = 4;
+    self.chooseAdressV.clipsToBounds = YES;
+    
     self.contentW.constant = SCREEN_WIDTH;
     self.contentH.constant = 1350;
 
@@ -627,6 +663,20 @@
     
 }
 -(void)animateTransition:(id <UIViewControllerContextTransitioning>)transitionContext{
+    
+    if ([self.chooseType isEqualToString:@"adress"]) {
+        
+        [self chooseAddress:transitionContext];
+        
+    }else if ([self.chooseType isEqualToString:@"industry"]){
+    
+        [self chooseindustry:transitionContext];
+    }
+    
+}
+//选择行业
+-(void)chooseindustry:(id <UIViewControllerContextTransitioning>)transitionContext{
+
     if (_ishidecotr==YES) {
         UIView *toView = [transitionContext viewForKey:UITransitionContextToViewKey];
         toView.frame=CGRectMake(-SCREEN_WIDTH, (SCREEN_HEIGHT - 300)/2, SCREEN_WIDTH - 40, 280);
@@ -658,6 +708,44 @@
         }];
         
     }
-    
+
+}
+
+//选择省市区
+-(void)chooseAddress:(id <UIViewControllerContextTransitioning>)transitionContext{
+
+    if (_ishidecotr==YES) {
+        UIView *toView = [transitionContext viewForKey:UITransitionContextToViewKey];
+        toView.frame=CGRectMake(-SCREEN_WIDTH, (SCREEN_HEIGHT - 300)/2, SCREEN_WIDTH - 40, 280);
+        toView.layer.cornerRadius = 6;
+        toView.clipsToBounds = YES;
+        [transitionContext.containerView addSubview:toView];
+        [UIView animateWithDuration:0.3 animations:^{
+            
+            toView.frame=CGRectMake(20, (SCREEN_HEIGHT - 300)/2, SCREEN_WIDTH - 40, 280);
+            
+        } completion:^(BOOL finished) {
+            
+            [transitionContext completeTransition:YES]; //这个必须写,否则程序 认为动画还在执行中,会导致展示完界面后,无法处理用户的点击事件
+            
+        }];
+    }else{
+        
+        UIView *toView = [transitionContext viewForKey:UITransitionContextFromViewKey];
+        
+        [UIView animateWithDuration:0.3 animations:^{
+            
+            toView.frame=CGRectMake(20 + SCREEN_WIDTH, (SCREEN_HEIGHT - 300)/2, SCREEN_WIDTH - 40, 280);
+            
+        } completion:^(BOOL finished) {
+            if (finished) {
+                [toView removeFromSuperview];
+                [transitionContext completeTransition:YES]; //这个必须写,否则程序 认为动画还在执行中,会导致展示完界面后,无法处理用户的点击事件
+            }
+            
+        }];
+        
+    }
+
 }
 @end

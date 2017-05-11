@@ -12,6 +12,6 @@
 @interface GLRecommendCell : UITableViewCell
 @property (nonatomic ,strong)GLRecommendModel *model;
 @property (weak, nonatomic) IBOutlet UILabel *dateLabel;
-@property (weak, nonatomic) IBOutlet UILabel *numberLabel;
-@property (weak, nonatomic) IBOutlet UILabel *nameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *IDNumLabel;
+@property (weak, nonatomic) IBOutlet UILabel *identityLabel;
 @end

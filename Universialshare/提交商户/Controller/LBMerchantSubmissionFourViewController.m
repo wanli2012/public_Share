@@ -8,8 +8,14 @@
 
 #import "LBMerchantSubmissionFourViewController.h"
 #import "MerchantInformationModel.h"
+#import "LBAddrecomdManChooseAreaViewController.h"
+#import "editorMaskPresentationController.h"
+#import "LBBaiduMapViewController.h"
 
-@interface LBMerchantSubmissionFourViewController ()<UINavigationControllerDelegate, UIImagePickerControllerDelegate,UIActionSheetDelegate,UITextFieldDelegate>
+@interface LBMerchantSubmissionFourViewController ()<UINavigationControllerDelegate, UIImagePickerControllerDelegate,UIActionSheetDelegate,UITextFieldDelegate,UIViewControllerTransitioningDelegate,UIViewControllerAnimatedTransitioning>
+{
+    BOOL _ishidecotr;//判断是否隐藏弹出控制器
+}
 @property (weak, nonatomic) IBOutlet UIButton *submit;
 @property (weak, nonatomic) IBOutlet UIImageView *handImage;
 @property (weak, nonatomic) IBOutlet UIImageView *positiveImage;//身份证正面照
@@ -59,6 +65,14 @@
 //店铺类型二
 @property (weak, nonatomic) IBOutlet UILabel *industrySecLb;
 
+//店铺类别 需要的属性
+@property (nonatomic, strong)NSMutableArray *industryArr;
+@property (nonatomic, assign)NSInteger isChoseFirstClassify;//记录一级分类的第几行
+@property (nonatomic, assign)NSInteger isChoseSecondClassify;//记录二级分类的第几行
+
+//经纬度
+@property (nonatomic, copy)NSString *latStr;
+@property (nonatomic, copy)NSString *longStr;
 
 @end
 
@@ -69,17 +83,106 @@
     
     self.navigationItem.title = @"提交商户";
      self.navigationController.navigationBar.hidden = NO;
+    [self getPickerData];
+}
+#pragma mark - get data
+- (void)getPickerData {
+    //行业列表
+    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+    dict[@"token"] = [UserModel defaultUser].token;
+    dict[@"uid"] = [UserModel defaultUser].uid;
+    
+        _loadV=[LoadWaitView addloadview:[UIScreen mainScreen].bounds tagert:[UIApplication sharedApplication].keyWindow];
+    [NetworkManager requestPOSTWithURLStr:@"user/getHylist" paramDic:dict finish:^(id responseObject) {
+        [_loadV removeloadview];
+        //        NSLog(@"responseObject = %@",responseObject);
+        if ([responseObject[@"code"] integerValue]==1) {
+            self.industryArr = responseObject[@"data"];
+        }else{
+            
+            [MBProgressHUD showError:responseObject[@"message"]];
+        }
+        
+    } enError:^(NSError *error) {
+        [_loadV removeloadview];
+        [MBProgressHUD showError:error.localizedDescription];
+        
+    }];
+    
 }
 //点击地图
 - (IBAction)tapgestureMap:(UITapGestureRecognizer *)sender {
+    self.hidesBottomBarWhenPushed = YES;
+    LBBaiduMapViewController *mapVC = [[LBBaiduMapViewController alloc] init];
+    mapVC.returePositon = ^(NSString *strposition,NSString *pro,NSString *city,NSString *area,CLLocationCoordinate2D coors){
+        //        self.adress = strposition;
+        //        self.sprovince = pro;
+        //        self.scity =city;
+        //        self.saera = area;
+//        self.latStr = [NSString stringWithFormat:@"%f",coors.latitude];
+//        self.longStr = [NSString stringWithFormat:@"%f",coors.longitude];
+        self.maplb.text = [NSString stringWithFormat:@"%@",strposition];
+    };
+    [self.navigationController pushViewController:mapVC animated:YES];
+
 }
 //选择一类行业
 - (IBAction)chooseIndustryFirst:(UITapGestureRecognizer *)sender {
+    LBAddrecomdManChooseAreaViewController *vc=[[LBAddrecomdManChooseAreaViewController alloc]init];
+    
+    if (self.industryArr.count != 0) {
+        
+        vc.provinceArr = self.industryArr;
+        vc.titlestr = @"请选择一级行业分类";
+        vc.returnreslut = ^(NSInteger index){
+            _isChoseFirstClassify = index;
+            _industryOneLb.text = _industryArr[index][@"trade_name"];
+            _industryOneLb.textColor = [UIColor blackColor];
+            _industrySecLb.text = @"";
+            
+        };
+        vc.transitioningDelegate = self;
+        vc.modalPresentationStyle=UIModalPresentationCustom;
+        [self presentViewController:vc animated:YES completion:nil];
+    }else{
+        [MBProgressHUD showError:@"一级分类暂无数据"];
+    }
+
 }
 //选择二类行业
 - (IBAction)chooseIndustrySecond:(UITapGestureRecognizer *)sender {
+    if ([self.industryOneLb.text isEqualToString:@"请选择一级行业分类"]) {
+        [MBProgressHUD showError:@"请选择一级行业分类"];
+        return;
+    }
+    
+    LBAddrecomdManChooseAreaViewController *vc=[[LBAddrecomdManChooseAreaViewController alloc]init];
+        NSArray *arr = self.industryArr[_isChoseFirstClassify][@"son"];
+        if(arr.count != 0){
+            
+            vc.provinceArr = self.industryArr[_isChoseFirstClassify][@"son"];
+            vc.titlestr = @"请选择二级行业分类";
+            vc.returnreslut = ^(NSInteger index){
+                _isChoseSecondClassify = index;
+                NSArray *son = _industryArr[_isChoseFirstClassify][@"son"];
+                if (son.count == 0) {
+                    _industrySecLb.text = @"";
+                }else{
+                    
+                    _industrySecLb.text = _industryArr[_isChoseFirstClassify][@"son"][index][@"trade_name"];
+                }
+                _industrySecLb.textColor = [UIColor blackColor];
+                
+            };
+            
+            vc.transitioningDelegate=self;
+            vc.modalPresentationStyle=UIModalPresentationCustom;
+            [self presentViewController:vc animated:YES completion:nil];
+        }else{
+            [MBProgressHUD showError:@"二级分类暂无数据"];
+        }
+    
 }
-
 
 //手持身份证
 - (IBAction)tapgesturehandimage:(UITapGestureRecognizer *)sender {
@@ -429,10 +532,30 @@
         return NO;
     }
     
+    if (textField == self.bossPhoneTf || textField == self.connectPhoneTf) {
+       return [self validateNumber:string];
+      
+    }
     return YES;
     
 }
 
+//只能输入整数
+- (BOOL)validateNumber:(NSString*)number {
+    BOOL res =YES;
+    NSCharacterSet* tmpSet = [NSCharacterSet characterSetWithCharactersInString:@"0123456789"];
+    int i =0;
+    while (i < number.length) {
+        NSString * string = [number substringWithRange:NSMakeRange(i,1)];
+        NSRange range = [string rangeOfCharacterFromSet:tmpSet];
+        if (range.length ==0) {
+            res =NO;
+            break;
+        }
+        i++;
+    }
+    return res;
+}
 -(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
 
     [self.view endEditing:YES];
@@ -478,5 +601,63 @@
     self.contentH.constant = 1350;
 
 
+}
+
+//动画
+- (nullable UIPresentationController *)presentationControllerForPresentedViewController:(UIViewController *)presented presentingViewController:(UIViewController *)presenting sourceViewController:(UIViewController *)source{
+    
+    return [[editorMaskPresentationController alloc]initWithPresentedViewController:presented presentingViewController:presenting];
+    
+}
+//控制器创建执行的动画（返回一个实现UIViewControllerAnimatedTransitioning协议的类）
+- (id <UIViewControllerAnimatedTransitioning>)animationControllerForPresentedController:(UIViewController *)presented presentingController:(UIViewController *)presenting sourceController:(UIViewController *)source
+{
+    _ishidecotr=YES;
+    return self;
+}
+
+- (id <UIViewControllerAnimatedTransitioning>)animationControllerForDismissedController:(UIViewController *)dismissed
+{
+    _ishidecotr=NO;
+    return self;
+}
+- (NSTimeInterval)transitionDuration:(id <UIViewControllerContextTransitioning>)transitionContext{
+    
+    return 0.5;
+    
+}
+-(void)animateTransition:(id <UIViewControllerContextTransitioning>)transitionContext{
+    if (_ishidecotr==YES) {
+        UIView *toView = [transitionContext viewForKey:UITransitionContextToViewKey];
+        toView.frame=CGRectMake(-SCREEN_WIDTH, (SCREEN_HEIGHT - 300)/2, SCREEN_WIDTH - 40, 280);
+        toView.layer.cornerRadius = 6;
+        toView.clipsToBounds = YES;
+        [transitionContext.containerView addSubview:toView];
+        [UIView animateWithDuration:0.3 animations:^{
+            
+            toView.frame=CGRectMake(20, (SCREEN_HEIGHT - 300)/2, SCREEN_WIDTH - 40, 280);
+            
+        } completion:^(BOOL finished) {
+            
+            [transitionContext completeTransition:YES]; //这个必须写,否则程序 认为动画还在执行中,会导致展示完界面后,无法处理用户的点击事件
+        }];
+    }else{
+        
+        UIView *toView = [transitionContext viewForKey:UITransitionContextFromViewKey];
+        
+        [UIView animateWithDuration:0.3 animations:^{
+            
+            toView.frame=CGRectMake(20 + SCREEN_WIDTH, (SCREEN_HEIGHT - 300)/2, SCREEN_WIDTH - 40, 280);
+            
+        } completion:^(BOOL finished) {
+            if (finished) {
+                [toView removeFromSuperview];
+                [transitionContext completeTransition:YES]; //这个必须写,否则程序 认为动画还在执行中,会导致展示完界面后,无法处理用户的点击事件
+            }
+            
+        }];
+        
+    }
+    
 }
 @end

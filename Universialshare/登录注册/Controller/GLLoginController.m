@@ -182,7 +182,7 @@
             [UserModel defaultUser].truename = [NSString stringWithFormat:@"%@",responseObject[@"data"][@"truename"]];
             [UserModel defaultUser].tjr = [NSString stringWithFormat:@"%@",responseObject[@"data"][@"tjr"]];
             [UserModel defaultUser].tjrname = [NSString stringWithFormat:@"%@",responseObject[@"data"][@"tjrname"]];
-            
+            [UserModel defaultUser].rzstatus = [NSString stringWithFormat:@"%@",responseObject[@"data"][@"rzstatus"]];
             [UserModel defaultUser].loginstatus = YES;
             [UserModel defaultUser].usrtype = self.usertype;
             [UserModel defaultUser].AudiThrough = @"0";

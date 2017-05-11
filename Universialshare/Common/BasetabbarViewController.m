@@ -85,7 +85,7 @@
         }else if ([[UserModel defaultUser].usrtype isEqualToString:OrdinaryUser]){//普通用户
             self.viewControllers = @[firstNav, IntegralMallnav, minenav];
         }else if ([[UserModel defaultUser].usrtype isEqualToString:Retailer]){//商家
-            self.viewControllers = @[firstNav, myordersNav, IntegralMallnav, minenav];
+            self.viewControllers = @[firstNav, myordersNav, minenav];
         }
     }else{//退出状态
         self.viewControllers = @[firstNav, IntegralMallnav, minenav];
@@ -113,18 +113,18 @@
   
     if (viewController == [tabBarController.viewControllers objectAtIndex:2]) {
        
-        if ([UserModel defaultUser].loginstatus == YES) {
-            
-            if ([[UserModel defaultUser].idcard isEqualToString:@""]) {
-                
-                LBImprovePersonalDataViewController *infoVC = [[LBImprovePersonalDataViewController alloc] init];
-                infoVC.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-                [self presentViewController:infoVC animated:YES completion:nil];
-                return NO;
-            }
-            
-            return YES;
-        }
+//        if ([UserModel defaultUser].loginstatus == YES) {
+//            
+//            if ([[UserModel defaultUser].rzstatus isEqualToString:@"0"] || [[UserModel defaultUser].rzstatus isEqualToString:@"3"]) {
+//                
+//                LBImprovePersonalDataViewController *infoVC = [[LBImprovePersonalDataViewController alloc] init];
+//                infoVC.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+//                [self presentViewController:infoVC animated:YES completion:nil];
+//                return NO;
+//            }
+//            
+//            return YES;
+//        }
         GLLoginController *loginVC = [[GLLoginController alloc] init];
         BaseNavigationViewController *nav = [[BaseNavigationViewController alloc]initWithRootViewController:loginVC];
         nav.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;

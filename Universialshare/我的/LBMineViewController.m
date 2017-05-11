@@ -705,6 +705,7 @@ minimumLineSpacingForSectionAtIndex:(NSInteger)section
             [UserModel defaultUser].idcard = [NSString stringWithFormat:@"%@",responseObject[@"data"][@"idcard"]];
             [UserModel defaultUser].headPic = [NSString stringWithFormat:@"%@",responseObject[@"data"][@"pic"]];
             [UserModel defaultUser].AudiThrough = [NSString stringWithFormat:@"%@",responseObject[@"data"][@"status"]];
+            [UserModel defaultUser].rzstatus = [NSString stringWithFormat:@"%@",responseObject[@"data"][@"rzstatus"]];
             
             if ([[UserModel defaultUser].idcard rangeOfString:@"null"].location != NSNotFound) {
                 

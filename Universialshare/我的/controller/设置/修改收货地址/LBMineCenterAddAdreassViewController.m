@@ -40,6 +40,7 @@
 @property (strong, nonatomic)NSString *cityStrId;
 @property (strong, nonatomic)NSString *countryStrId;
 
+@property (nonatomic, strong)NSMutableArray *dataArr;
 @end
 
 @implementation LBMineCenterAddAdreassViewController
@@ -57,6 +58,7 @@
     self.countryStrId = @"";
     
     [self initProvinceCityArea];
+    [self getPickerData];//请求省市区数据
 }
 
 -(void)initProvinceCityArea{
@@ -81,7 +83,23 @@
     }
 
 }
+#pragma mark - get data
+- (void)getPickerData {
 
+    _loadV=[LoadWaitView addloadview:[UIScreen mainScreen].bounds tagert:[UIApplication sharedApplication].keyWindow];
+    [NetworkManager requestPOSTWithURLStr:@"user/getCityList" paramDic:@{} finish:^(id responseObject) {
+        [_loadV removeloadview];
+        if ([responseObject[@"code"] integerValue]==1) {
+            self.dataArr = responseObject[@"data"];
+        }
+        
+    } enError:^(NSError *error) {
+        [_loadV removeloadview];
+        [MBProgressHUD showError:error.localizedDescription];
+        
+    }];
+    
+}
 
 -(BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
     
@@ -131,6 +149,7 @@
 - (IBAction)tapgestureChoose:(UITapGestureRecognizer *)sender {
     
     LBMineCenterChooseAreaViewController *vc=[[LBMineCenterChooseAreaViewController alloc]init];
+    vc.dataArr = self.dataArr;
     vc.transitioningDelegate=self;
     vc.modalPresentationStyle=UIModalPresentationCustom;
     
@@ -294,5 +313,10 @@
     self.savebutoon.clipsToBounds=YES;
 
 }
-
+- (NSMutableArray *)dataArr{
+    if (!_dataArr) {
+        _dataArr = [NSMutableArray array];
+    }
+    return _dataArr;
+}
 @end

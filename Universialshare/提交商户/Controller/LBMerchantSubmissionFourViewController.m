@@ -82,6 +82,8 @@
 @property (nonatomic, copy)NSString *latStr;
 @property (nonatomic, copy)NSString *longStr;
 
+@property (nonatomic, strong)NSMutableArray *dataArr;
+
 @end
 
 @implementation LBMerchantSubmissionFourViewController
@@ -106,8 +108,9 @@
     
         _loadV=[LoadWaitView addloadview:[UIScreen mainScreen].bounds tagert:[UIApplication sharedApplication].keyWindow];
     [NetworkManager requestPOSTWithURLStr:@"user/getHylist" paramDic:dict finish:^(id responseObject) {
-        [_loadV removeloadview];
-        //        NSLog(@"responseObject = %@",responseObject);
+//        [_loadV removeloadview];
+//        NSLog(@"dict = %@",dict);
+//        NSLog(@"responseObject = %@",responseObject);
         if ([responseObject[@"code"] integerValue]==1) {
             self.industryArr = responseObject[@"data"];
         }else{
@@ -116,10 +119,23 @@
         }
         
     } enError:^(NSError *error) {
+//        [_loadV removeloadview];
+        [MBProgressHUD showError:error.localizedDescription];
+        
+    }];
+    
+    [NetworkManager requestPOSTWithURLStr:@"user/getCityList" paramDic:@{} finish:^(id responseObject) {
+        [_loadV removeloadview];
+        if ([responseObject[@"code"] integerValue]==1) {
+            self.dataArr = responseObject[@"data"];
+        }
+        
+    } enError:^(NSError *error) {
         [_loadV removeloadview];
         [MBProgressHUD showError:error.localizedDescription];
         
     }];
+
     
 }
 //点击地图
@@ -195,13 +211,13 @@
         }else{
             [MBProgressHUD showError:@"二级分类暂无数据"];
         }
-    
 }
 
 //选择省市区
 - (IBAction)chooseAdressEvent:(UITapGestureRecognizer *)sender {
     self.chooseType = @"adress";
     LBMineCenterChooseAreaViewController *vc=[[LBMineCenterChooseAreaViewController alloc]init];
+    vc.dataArr = self.dataArr;
     vc.transitioningDelegate=self;
     vc.modalPresentationStyle=UIModalPresentationCustom;
     
@@ -214,8 +230,6 @@
         weakself.countryStrId = areaid;
     };
 }
-
-
 
 //手持身份证
 - (IBAction)tapgesturehandimage:(UITapGestureRecognizer *)sender {
@@ -332,38 +346,30 @@
         return;
     }
     
-    
     if ([UIImagePNGRepresentation(self.InteriorImage.image) isEqual:UIImagePNGRepresentation([UIImage imageNamed:@"照片框-拷贝-12"])] || [UIImagePNGRepresentation(self.InteriorOneImage.image) isEqual:UIImagePNGRepresentation([UIImage imageNamed:@"照片框-拷贝-13"])]  || [UIImagePNGRepresentation(self.DoorplateOneimage.image) isEqual:UIImagePNGRepresentation([UIImage imageNamed:@"内景2-拷贝"])]) {
         [MBProgressHUD showError:@"请上传店铺环境照"];
         return;
     }
     
-    
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
     dict[@"token"] = [UserModel defaultUser].token;
     dict[@"uid"] = [UserModel defaultUser].uid;
-    dict[@"openbank"] = [MerchantInformationModel defaultUser].openBankNameid;
-    dict[@"banknumber"] = [MerchantInformationModel defaultUser].bankNumbers;
-    dict[@"name"] = [MerchantInformationModel defaultUser].SettlementName;
-    dict[@"bank_adderss"] = [MerchantInformationModel defaultUser].SubBranch;
-    dict[@"phone"] = [MerchantInformationModel defaultUser].loginPhone;
-    dict[@"pwd"] = [MerchantInformationModel defaultUser].secret;
-    
-    dict[@"shop_name"] = [MerchantInformationModel defaultUser].shopName;
-    dict[@"truename"] = [MerchantInformationModel defaultUser].legalPerson;
-    dict[@"email"] = [MerchantInformationModel defaultUser].Email;
-    dict[@"shop_acreage"] = [MerchantInformationModel defaultUser].measureRrea;
-    dict[@"open_time"] = [MerchantInformationModel defaultUser].BusinessBegin;
-    dict[@"s_province"] =[MerchantInformationModel defaultUser].provinceId;
-    dict[@"s_city"] = [MerchantInformationModel defaultUser].cityId;
-    dict[@"s_area"] = [MerchantInformationModel defaultUser].countryId;
-    dict[@"s_address"] = [MerchantInformationModel defaultUser].detailAdress;
-    dict[@"trade_id"] = [MerchantInformationModel defaultUser].PrimaryClassification;
-    dict[@"lat"] = [MerchantInformationModel defaultUser].lat;
-    dict[@"lng"] = [MerchantInformationModel defaultUser].lng;
-    dict[@"two_trade_id"] = [MerchantInformationModel defaultUser].TwoClassification;
-    
-    NSArray *imageViewArr = [NSArray arrayWithObjects:self.positiveImage,self.otherSideImage,self.licenseImage,self.undertakingOne,self.doorplateImage,self.DoorplateOneimage,self.InteriorImage,self.InteriorOneImage, nil];
+    dict[@"openbank"] = self.storeName.text;//店名
+    dict[@"banknumber"] = self.codeTf.text;//执照号码
+    dict[@"name"] = self.adressLb.text;//省市区
+    dict[@"bank_adderss"] = self.maplb.text;//地图选址
+    dict[@"phone"] = self.doorNumbersTf.text;//门牌号
+    dict[@"pwd"] = self.bossNametf.text;//法人姓名
+    dict[@"shop_name"] = self.bossPhoneTf.text;//法人电话
+    dict[@"truename"] = self.connectName.text;//联系人姓名
+    dict[@"email"] = self.connectPhoneTf.text;//联系人电话
+    dict[@"shop_acreage"] = self.industryOneLb.text;//店铺一级类别
+    dict[@"open_time"] = self.industrySecLb.text;//店铺二级类别
+
+    dict[@"lat"] = [MerchantInformationModel defaultUser].lat;//纬度
+    dict[@"lng"] = [MerchantInformationModel defaultUser].lng;//经度
+  
+    NSArray *imageViewArr = [NSArray arrayWithObjects:self.positiveImage,self.otherSideImage,self.licenseImage,self.undertakingOne,self.undertakingTwo,self.doorplateImage,self.InteriorImage,self.InteriorOneImage,self.DoorplateOneimage ,nil];
     
     NSArray *titleArr = [NSArray arrayWithObjects:@"face_pic",@"con_pic",@"license_pic",@"promise_pic",@"store_pic",@"store_one",@"store_two",@"store_three", nil];
 
@@ -747,5 +753,12 @@
         
     }
 
+}
+
+- (NSMutableArray *)dataArr{
+    if (!_dataArr) {
+        _dataArr = [NSMutableArray array];
+    }
+    return _dataArr;
 }
 @end

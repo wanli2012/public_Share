@@ -11,12 +11,14 @@
 #import "LBIntegralMallViewController.h"
 #import "GLOrderPayView.h"
 #import "GLSet_MaskVeiw.h"
+#import "LBImprovePersonalDataViewController.h"
 
 @interface LBMineCenterPayPagesViewController ()<UITableViewDelegate,UITableViewDataSource>
 {
     LoadWaitView *_loadV;
     GLSet_MaskVeiw *_maskV;
     GLOrderPayView *_contentView;
+    LBImprovePersonalDataViewController *_infoVC;
 }
 
 @property (weak, nonatomic) IBOutlet UITableView *tableview;
@@ -61,7 +63,7 @@
         [self.selectB addObject:@NO];
         
     }
-    
+    _infoVC = [[LBImprovePersonalDataViewController alloc] init];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dismiss) name:@"maskView_dismiss" object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(postRepuest:) name:@"input_PasswordNotification" object:nil];
@@ -139,6 +141,15 @@
 }
 - (IBAction)surebutton:(UIButton *)sender {
     
+    if ([[UserModel defaultUser].rzstatus integerValue] == 0 || [[UserModel defaultUser].rzstatus integerValue] == 3) {
+        [self presentViewController:_infoVC animated:YES completion:nil];
+        
+        return;
+    }else if ([[UserModel defaultUser].rzstatus integerValue] == 1){
+        [MBProgressHUD showError:@"实名认证审核中,暂无法使用该服务"];
+        return;
+    }
+
     if (![self.selectB containsObject:@(YES)]){
         [MBProgressHUD showError:@"请选择支付方式"];
         return;
@@ -162,7 +173,6 @@
         [_contentView.passwordF becomeFirstResponder];
     }];
     
- 
 }
 - (void)postRepuest:(NSNotification *)sender {
 

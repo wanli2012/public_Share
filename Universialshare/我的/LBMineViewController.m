@@ -35,9 +35,12 @@
 #import "GLShoppingCartController.h"
 #import <SDWebImage/UIButton+WebCache.h>
 #import "LBMerchantSubmissionFourViewController.h"
+#import "LBImprovePersonalDataViewController.h"
 
-@interface LBMineViewController ()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>{
+@interface LBMineViewController ()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
+{
     UIImageView *_imageviewLeft;
+    LBImprovePersonalDataViewController *_infoVC;
 }
 
 @property(nonatomic,strong)UICollectionView *collectionV;
@@ -70,6 +73,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshDataSource) name:UIApplicationWillEnterForegroundNotification object:[UIApplication sharedApplication]];
     
     _ordertype = @"1";
+    _infoVC = [[LBImprovePersonalDataViewController alloc] init];
     
 }
 
@@ -153,6 +157,14 @@
                 break;
             case 1:
             {
+                if ([[UserModel defaultUser].rzstatus integerValue] == 0 || [[UserModel defaultUser].rzstatus integerValue] == 3) {
+                    [self presentViewController:_infoVC animated:YES completion:nil];
+                    
+                    return;
+                }else if ([[UserModel defaultUser].rzstatus integerValue] == 1){
+                    [MBProgressHUD showError:@"实名认证审核中,暂无法使用该服务"];
+                    return;
+                }
                 self.hidesBottomBarWhenPushed=YES;
                 GLDirectDonationController *vc=[[GLDirectDonationController alloc]init];
                 [self.navigationController pushViewController:vc animated:YES];
@@ -179,6 +191,14 @@
                 break;
             case 3:
             {
+                if ([[UserModel defaultUser].rzstatus integerValue] == 0 || [[UserModel defaultUser].rzstatus integerValue] == 3) {
+                    [self presentViewController:_infoVC animated:YES completion:nil];
+                    
+                    return;
+                }else if ([[UserModel defaultUser].rzstatus integerValue] == 1){
+                    [MBProgressHUD showError:@"实名认证审核中,暂无法使用该服务"];
+                    return;
+                }
                 self.hidesBottomBarWhenPushed=YES;
                 GLBuyBackController *vc=[[GLBuyBackController alloc]init];
                 [self.navigationController pushViewController:vc animated:YES];
@@ -187,6 +207,14 @@
                 break;
             case 4:
             {
+                if ([[UserModel defaultUser].rzstatus integerValue] == 0 || [[UserModel defaultUser].rzstatus integerValue] == 3) {
+                    [self presentViewController:_infoVC animated:YES completion:nil];
+                    
+                    return;
+                }else if ([[UserModel defaultUser].rzstatus integerValue] == 1){
+                    [MBProgressHUD showError:@"实名认证审核中,暂无法使用该服务"];
+                    return;
+                }
                 self.hidesBottomBarWhenPushed=YES;
                 GLDonationController *vc=[[GLDonationController alloc]init];
                 [self.navigationController pushViewController:vc animated:YES];
@@ -236,7 +264,17 @@
                     
                     [self.navigationController pushViewController:vc animated:YES];
                     self.hidesBottomBarWhenPushed=NO;
+                    
                 }else{
+                    
+                    if ([[UserModel defaultUser].rzstatus integerValue] == 0 || [[UserModel defaultUser].rzstatus integerValue] == 3) {
+                        [self presentViewController:_infoVC animated:YES completion:nil];
+                        
+                        return;
+                    }else if ([[UserModel defaultUser].rzstatus integerValue] == 1){
+                        [MBProgressHUD showError:@"实名认证审核中,暂无法使用该服务"];
+                        return;
+                    }
                     self.hidesBottomBarWhenPushed=YES;
                     GLDirectDonationController *vc=[[GLDirectDonationController alloc]init];
                     
@@ -257,6 +295,14 @@
                 break;
             case 3:
             {
+                if ([[UserModel defaultUser].rzstatus integerValue] == 0 || [[UserModel defaultUser].rzstatus integerValue] == 3) {
+                    [self presentViewController:_infoVC animated:YES completion:nil];
+                    
+                    return;
+                }else if ([[UserModel defaultUser].rzstatus integerValue] == 1){
+                    [MBProgressHUD showError:@"实名认证审核中,暂无法使用该服务"];
+                    return;
+                }
                 self.hidesBottomBarWhenPushed=YES;
                 GLBuyBackController *vc=[[GLBuyBackController alloc]init];
                 
@@ -266,6 +312,15 @@
                 break;
             case 4:
             {
+                if ([[UserModel defaultUser].rzstatus integerValue] == 0 || [[UserModel defaultUser].rzstatus integerValue] == 3) {
+                    [self presentViewController:_infoVC animated:YES completion:nil];
+                    
+                    return;
+                }else if ([[UserModel defaultUser].rzstatus integerValue] == 1){
+                    [MBProgressHUD showError:@"实名认证审核中,暂无法使用该服务"];
+                    return;
+                }
+
                 self.hidesBottomBarWhenPushed=YES;
                 GLDonationController *vc=[[GLDonationController alloc]init];
                 
@@ -437,10 +492,7 @@ minimumLineSpacingForSectionAtIndex:(NSInteger)section
     LBMineMessageViewController *vc=[[LBMineMessageViewController alloc]init];
     [self.navigationController pushViewController:vc animated:YES];
     self.hidesBottomBarWhenPushed=NO;
-    
-    
-    
-    
+  
 }
 
 #pragma mark 懒加载

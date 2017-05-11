@@ -316,7 +316,7 @@
                                                 <constraint firstAttribute="width" secondItem="Uyo-f0-rZQ" secondAttribute="height" multiplier="8:15" id="vPS-Hh-zRK"/>
                                             </constraints>
                                         </imageView>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bank_nopicture" translatesAutoresizingMaskIntoConstraints="NO" id="McX-aZ-NVx" userLabel="bankStyleImageV">
+                                        <imageView autoresizesSubviews="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bank_nopicture" translatesAutoresizingMaskIntoConstraints="NO" id="McX-aZ-NVx" userLabel="bankStyleImageV">
                                             <rect key="frame" x="10" y="30" width="40" height="40"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" secondItem="McX-aZ-NVx" secondAttribute="height" multiplier="1:1" id="0hb-Rk-dyg"/>

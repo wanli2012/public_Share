@@ -30,6 +30,10 @@
 
 @property (weak, nonatomic) IBOutlet UIImageView *otherImage;//身份证反面
 @property (weak, nonatomic) IBOutlet UIImageView *saleImage;//消费承诺书
+@property (strong, nonatomic)NSString *sexstr;//性别
+@property (weak, nonatomic) IBOutlet UIImageView *manImage;
+@property (weak, nonatomic) IBOutlet UIImageView *womanimage;
+@property (weak, nonatomic) IBOutlet UITextField *adresstf;
 
 @property (assign, nonatomic)NSInteger tapIndex;//判断点击的是那个图片
 
@@ -41,7 +45,7 @@
     [super viewDidLoad];
    
     self.status = @"0";
-    
+    self.sexstr = @"0";
 }
 
 - (IBAction)exitButton:(UIButton *)sender {
@@ -73,8 +77,24 @@
 }
 //消费承诺书
 - (IBAction)tapgesturepromiseImage:(UITapGestureRecognizer *)sender {
-    _tapIndex = 2;
+    _tapIndex = 3;
     [self tapgesturephotoOrCamera];
+}
+
+- (IBAction)tapgesturewoman:(UITapGestureRecognizer *)sender {
+    
+    self.sexstr = @"1";
+    self.manImage.image = [UIImage imageNamed:@"location_off"];
+    self.womanimage.image = [UIImage imageNamed:@"location_on"];
+    
+}
+
+- (IBAction)tapgestureMan:(UITapGestureRecognizer *)sender {
+    
+    self.sexstr = @"0";
+    self.manImage.image = [UIImage imageNamed:@"location_on"];
+    self.womanimage.image = [UIImage imageNamed:@"location_off"];
+    
 }
 
 
@@ -131,35 +151,80 @@
         return;
     }
     
+    if (self.adresstf.text.length <= 0) {
+        [MBProgressHUD showError:@"请输入地址"];
+        return;
+    }
     
+     NSString *encryptsecret = [RSAEncryptor encryptString:self.sixSecretTf.text publicKey:public_RSA];
     
-//     NSString *encryptsecret = [RSAEncryptor encryptString:self.sixSecretTf.text publicKey:public_RSA];
-//    
-//    _loadV=[LoadWaitView addloadview:[UIScreen mainScreen].bounds tagert:self.view];
-//    [NetworkManager requestPOSTWithURLStr:@"user/userInfoBq" paramDic:@{@"token":[UserModel defaultUser].token , @"uid":[UserModel defaultUser].uid , @"truename":self.nameTf.text , @"idcard":self.codeTf.text ,@"twopwd":encryptsecret ,} finish:^(id responseObject) {
-//        [_loadV removeloadview];
-//     
-//        if ([responseObject[@"status"] integerValue]==1) {
-//            self.status = @"1";
-//            [self.exitbt setTitle:@"重新登录" forState:UIControlStateNormal];
-//        }
-//        if ([responseObject[@"code"] integerValue]==1) {
-//            [MBProgressHUD showError:responseObject[@"message"]];
-//            [self dismissViewControllerAnimated:YES completion:nil];
-//            
-//            [UserModel defaultUser].truename = self.nameTf.text;
-//            [UserModel defaultUser].idcard = self.codeTf.text;
-//   
-//            [usermodelachivar achive];
-//            
-//        }else{
-//            [MBProgressHUD showError:responseObject[@"message"]];
-//        }
-//    } enError:^(NSError *error) {
-//        [_loadV removeloadview];
-//        [MBProgressHUD showError:error.localizedDescription];
-//        
-//    }];
+    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+    
+    dict[@"token"]=[UserModel defaultUser].token;
+    dict[@"uid"]=[UserModel defaultUser].uid;
+    dict[@"truename"]=self.nameTf.text;
+    dict[@"idcard"]=self.codeTf.text;
+    dict[@"sexer"]=self.sexstr;
+    dict[@"twopwd"]=encryptsecret;
+    dict[@"address"]=self.adresstf.text;
+    
+    NSArray *imageViewArr = [NSArray arrayWithObjects:self.positiveImage,self.otherImage,self.saleImage, nil];
+    
+    NSArray *titleArr = [NSArray arrayWithObjects:@"face_pic",@"con_pic",@"u_buypic", nil];
+    
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];//响应
+    manager.requestSerializer.timeoutInterval = 20;
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"text/html",@"application/json",nil];
+    // 加上这行代码，https ssl 验证。
+    [manager setSecurityPolicy:[NetworkManager customSecurityPolicy]];
+    [manager POST:[NSString stringWithFormat:@"%@user/userInfoBq",URL_Base] parameters:dict  constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+        //将图片以表单形式上传
+        
+        for (int i = 0; i < imageViewArr.count; i ++) {
+            
+            NSDateFormatter *formatter=[[NSDateFormatter alloc]init];
+            formatter.dateFormat=@"yyyyMMddHHmmss";
+            NSString *str=[formatter stringFromDate:[NSDate date]];
+            NSString *fileName=[NSString stringWithFormat:@"%@%d.png",str,i];
+            UIImageView *imaev = (UIImageView*)imageViewArr[i];
+            NSData *data = UIImagePNGRepresentation(imaev.image);
+            [formData appendPartWithFileData:data name:titleArr[i] fileName:fileName mimeType:@"image/png"];
+        }
+        
+    }progress:^(NSProgress *uploadProgress){
+        [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeClear];
+        [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
+        [SVProgressHUD setCornerRadius:8.0];
+        [SVProgressHUD showProgress:uploadProgress.fractionCompleted status:[NSString stringWithFormat:@"上传中%.0f%%",(uploadProgress.fractionCompleted * 100)]];
+        
+    }success:^(NSURLSessionDataTask *task, id responseObject) {
+        [SVProgressHUD dismiss];
+        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+       
+        if ([dic[@"status"] integerValue]==1) {
+            self.status = @"1";
+            [self.exitbt setTitle:@"重新登录" forState:UIControlStateNormal];
+        }
+        if ([dic[@"code"]integerValue]==1) {
+            
+            [MBProgressHUD showError:@"资料认证中..."];
+            [self dismissViewControllerAnimated:YES completion:nil];
+            
+            [UserModel defaultUser].truename = self.nameTf.text;
+            [UserModel defaultUser].idcard = self.codeTf.text;
+            [UserModel defaultUser].rzstatus = @"1";
+            
+            [usermodelachivar achive];
+            
+        }else{
+            [MBProgressHUD showError:dic[@"message"]];
+        }
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+
+        [SVProgressHUD dismiss];
+        [MBProgressHUD showError:error.localizedDescription];
+    }];
     
     
 }
@@ -172,6 +237,21 @@
     
     
 }
+
+-(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
+    switch (buttonIndex) {
+        case 0:{
+            [self getpicture];//获取相册
+        }break;
+            
+        case 1:{
+            [self getcamera];//获取照相机
+        }break;
+        default:
+            break;
+    }
+}
+
 
 -(void)getpicture{
     UIImagePickerController *picker = [[UIImagePickerController alloc] init];
@@ -262,6 +342,10 @@
         return NO;
     }else if (textField == self.sixSecretTf1 && [string isEqualToString:@"\n"]){
         
+        [self.adresstf becomeFirstResponder];
+        return NO;
+    }else if (textField == self.adresstf && [string isEqualToString:@"\n"]){
+        
         [self.view endEditing:YES];
         return NO;
     }
@@ -298,7 +382,7 @@
 -(void)updateViewConstraints{
     [super updateViewConstraints];
     self.contentW.constant =SCREEN_WIDTH;
-    self.contentH.constant =670;
+    self.contentH.constant =760;
 
 }
 

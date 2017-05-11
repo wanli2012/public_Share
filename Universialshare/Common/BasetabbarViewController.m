@@ -115,13 +115,13 @@
        
         if ([UserModel defaultUser].loginstatus == YES) {
             
-//            if ([[UserModel defaultUser].rzstatus isEqualToString:@"0"] || [[UserModel defaultUser].rzstatus isEqualToString:@"3"]) {
-//                
-//                LBImprovePersonalDataViewController *infoVC = [[LBImprovePersonalDataViewController alloc] init];
-//                infoVC.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-//                [self presentViewController:infoVC animated:YES completion:nil];
-//                return NO;
-//            }
+            if ([[UserModel defaultUser].rzstatus isEqualToString:@"0"] || [[UserModel defaultUser].rzstatus isEqualToString:@"3"]) {
+                
+                LBImprovePersonalDataViewController *infoVC = [[LBImprovePersonalDataViewController alloc] init];
+                infoVC.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+                [self presentViewController:infoVC animated:YES completion:nil];
+                return NO;
+            }
             
             return YES;
         }

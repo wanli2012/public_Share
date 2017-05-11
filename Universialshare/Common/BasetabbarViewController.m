@@ -113,8 +113,8 @@
   
     if (viewController == [tabBarController.viewControllers objectAtIndex:2]) {
        
-//        if ([UserModel defaultUser].loginstatus == YES) {
-//            
+        if ([UserModel defaultUser].loginstatus == YES) {
+            
 //            if ([[UserModel defaultUser].rzstatus isEqualToString:@"0"] || [[UserModel defaultUser].rzstatus isEqualToString:@"3"]) {
 //                
 //                LBImprovePersonalDataViewController *infoVC = [[LBImprovePersonalDataViewController alloc] init];
@@ -122,9 +122,9 @@
 //                [self presentViewController:infoVC animated:YES completion:nil];
 //                return NO;
 //            }
-//            
-//            return YES;
-//        }
+            
+            return YES;
+        }
         GLLoginController *loginVC = [[GLLoginController alloc] init];
         BaseNavigationViewController *nav = [[BaseNavigationViewController alloc]initWithRootViewController:loginVC];
         nav.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;

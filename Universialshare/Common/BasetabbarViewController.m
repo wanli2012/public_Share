@@ -85,7 +85,7 @@
         }else if ([[UserModel defaultUser].usrtype isEqualToString:OrdinaryUser]){//普通用户
             self.viewControllers = @[firstNav, IntegralMallnav, minenav];
         }else if ([[UserModel defaultUser].usrtype isEqualToString:Retailer]){//商家
-            self.viewControllers = @[firstNav, myordersNav, IntegralMallnav, minenav];
+            self.viewControllers = @[firstNav, myordersNav, minenav];
         }
     }else{//退出状态
         self.viewControllers = @[firstNav, IntegralMallnav, minenav];

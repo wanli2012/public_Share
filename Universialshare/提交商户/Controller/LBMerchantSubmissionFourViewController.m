@@ -110,7 +110,7 @@
     [NetworkManager requestPOSTWithURLStr:@"user/getHylist" paramDic:dict finish:^(id responseObject) {
 //        [_loadV removeloadview];
 //        NSLog(@"dict = %@",dict);
-//        NSLog(@"responseObject = %@",responseObject);
+        NSLog(@"responseObject = %@",responseObject);
         if ([responseObject[@"code"] integerValue]==1) {
             self.industryArr = responseObject[@"data"];
         }else{
@@ -147,8 +147,8 @@
         //        self.sprovince = pro;
         //        self.scity =city;
         //        self.saera = area;
-//        self.latStr = [NSString stringWithFormat:@"%f",coors.latitude];
-//        self.longStr = [NSString stringWithFormat:@"%f",coors.longitude];
+        self.latStr = [NSString stringWithFormat:@"%f",coors.latitude];
+        self.longStr = [NSString stringWithFormat:@"%f",coors.longitude];
         self.maplb.text = [NSString stringWithFormat:@"%@",strposition];
     };
     [self.navigationController pushViewController:mapVC animated:YES];
@@ -199,7 +199,7 @@
                     _industrySecLb.text = @"";
                 }else{
                     
-                    _industrySecLb.text = _industryArr[_isChoseFirstClassify][@"son"][index][@"trade_name"];
+                    _industrySecLb.text = _industryArr[_isChoseFirstClassify][@"son"][_isChoseSecondClassify][@"trade_name"];
                 }
                 _industrySecLb.textColor = [UIColor blackColor];
                 
@@ -217,7 +217,7 @@
 - (IBAction)chooseAdressEvent:(UITapGestureRecognizer *)sender {
     self.chooseType = @"adress";
     LBMineCenterChooseAreaViewController *vc=[[LBMineCenterChooseAreaViewController alloc]init];
-    vc.dataArr = self.dataArr;
+//    vc.dataArr = self.dataArr;
     vc.transitioningDelegate=self;
     vc.modalPresentationStyle=UIModalPresentationCustom;
     
@@ -316,7 +316,72 @@
 //        [MBProgressHUD showError:@"请上传法人手持证件照"];
 //        return;
 //    }
+//    @property (weak, nonatomic) IBOutlet UITextField *storeName;//店名
+//    //营业执照
+//    @property (weak, nonatomic) IBOutlet UITextField *codeTf;
+//    //地图
+//    @property (weak, nonatomic) IBOutlet UILabel *maplb;
+//    //门牌
+//    @property (weak, nonatomic) IBOutlet UITextField *doorNumbersTf;
+//    //法人姓名
+//    @property (weak, nonatomic) IBOutlet UITextField *bossNametf;
+//    //法人电话
+//    @property (weak, nonatomic) IBOutlet UITextField *bossPhoneTf;
+//    //联系人名字
+//    @property (weak, nonatomic) IBOutlet UITextField *connectName;
+//    //联系人电话
+//    @property (weak, nonatomic) IBOutlet UITextField *connectPhoneTf;
+//    //店铺类型一
+//    @property (weak, nonatomic) IBOutlet UILabel *industryOneLb;
+//    //店铺类型二
+//    @property (weak, nonatomic) IBOutlet UILabel *industrySecLb;
+//    //省市区地址
+//    @property (weak, nonatomic) IBOutlet UILabel *adressLb;
     
+    if (self.storeName.text.length <= 0) {
+        [MBProgressHUD showError:@"请输入店名"];
+        return;
+    }
+    if (self.codeTf.text.length <= 0) {
+        [MBProgressHUD showError:@"请输入营业执照号码"];
+        return;
+    }
+    if (self.maplb.text.length <= 0) {
+        [MBProgressHUD showError:@"还没有地图选点"];
+        return;
+    }
+    if (self.adressLb.text.length <= 0) {
+        [MBProgressHUD showError:@"请选择省市区"];
+        return;
+    }
+    if (self.doorNumbersTf.text.length <= 0) {
+        [MBProgressHUD showError:@"请输入街道和门牌号"];
+        return;
+    }
+    if (self.bossNametf.text.length <= 0) {
+        [MBProgressHUD showError:@"请输入法人姓名"];
+        return;
+    }
+    if (self.bossPhoneTf.text.length <= 0) {
+        [MBProgressHUD showError:@"请输入法人电话"];
+        return;
+    }
+    if (self.connectName.text.length <= 0) {
+        [MBProgressHUD showError:@"请输入联系人姓名"];
+        return;
+    }
+    if (self.connectPhoneTf.text.length <= 0) {
+        [MBProgressHUD showError:@"请输入联系人电话"];
+        return;
+    }
+    if ([self.industrySecLb.text isEqualToString:@"选择"]) {
+        [MBProgressHUD showError:@"请选择店铺总类别"];
+        return;
+    }
+    if ([self.industrySecLb.text isEqualToString:@"选择"]) {
+        [MBProgressHUD showError:@"请选择店铺具体类别"];
+        return;
+    }
     if (!self.positiveImage.image || [UIImagePNGRepresentation(self.positiveImage.image) isEqual:UIImagePNGRepresentation([UIImage imageNamed:@"样板-拷贝"])]) {
         [MBProgressHUD showError:@"请上传身份证正面照"];
         return;
@@ -350,28 +415,30 @@
         [MBProgressHUD showError:@"请上传店铺环境照"];
         return;
     }
-    
+
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
     dict[@"token"] = [UserModel defaultUser].token;
     dict[@"uid"] = [UserModel defaultUser].uid;
-    dict[@"openbank"] = self.storeName.text;//店名
-    dict[@"banknumber"] = self.codeTf.text;//执照号码
-    dict[@"name"] = self.adressLb.text;//省市区
-    dict[@"bank_adderss"] = self.maplb.text;//地图选址
-    dict[@"phone"] = self.doorNumbersTf.text;//门牌号
-    dict[@"pwd"] = self.bossNametf.text;//法人姓名
-    dict[@"shop_name"] = self.bossPhoneTf.text;//法人电话
+    dict[@"shop_name"] = self.storeName.text;//店名license_num
+    dict[@"license_num"] = self.codeTf.text;//营业执照号
+    dict[@"s_province"] = self.provinceStrId;//省
+    dict[@"s_city"] = self.cityStrId;//市
+    dict[@"s_area"] = self.countryStrId;//区
+    dict[@"s_address"] = [NSString stringWithFormat:@"%@%@",self.adressLb.text,self.doorNumbersTf.text];//门牌号(详细地址)
+    dict[@"corporation_name"] = self.bossNametf.text;//法人姓名
+    dict[@"corporation_phone"] = self.bossPhoneTf.text;//法人电话
     dict[@"truename"] = self.connectName.text;//联系人姓名
     dict[@"email"] = self.connectPhoneTf.text;//联系人电话
-    dict[@"shop_acreage"] = self.industryOneLb.text;//店铺一级类别
-    dict[@"open_time"] = self.industrySecLb.text;//店铺二级类别
+    dict[@"truename"] = self.connectName.text;//登录手机号
+    dict[@"phone"] = self.connectPhoneTf.text;//真实姓名
+    dict[@"trade_id"] = _industryArr[_isChoseFirstClassify][@"son"][_isChoseSecondClassify][@"trade_id"];
 
-    dict[@"lat"] = [MerchantInformationModel defaultUser].lat;//纬度
-    dict[@"lng"] = [MerchantInformationModel defaultUser].lng;//经度
+    dict[@"lat"] = self.latStr;//纬度
+    dict[@"lng"] = self.longStr;//经度
   
     NSArray *imageViewArr = [NSArray arrayWithObjects:self.positiveImage,self.otherSideImage,self.licenseImage,self.undertakingOne,self.undertakingTwo,self.doorplateImage,self.InteriorImage,self.InteriorOneImage,self.DoorplateOneimage ,nil];
     
-    NSArray *titleArr = [NSArray arrayWithObjects:@"face_pic",@"con_pic",@"license_pic",@"promise_pic",@"store_pic",@"store_one",@"store_two",@"store_three", nil];
+    NSArray *titleArr = [NSArray arrayWithObjects:@"face_pic",@"con_pic",@"license_pic",@"promise_pic",@"store_pic",@"store_one",@"store_two",@"store_three",@"tg_pic", nil];
 
     _loadV=[LoadWaitView addloadview:[UIScreen mainScreen].bounds tagert:self.view];
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
@@ -381,7 +448,7 @@
     [manager setSecurityPolicy:[NetworkManager customSecurityPolicy]];
     [manager POST:[NSString stringWithFormat:@"%@user/openOne",URL_Base] parameters:dict  constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
         //将图片以表单形式上传
-        
+//        NSLog(@"dict = %@",dict);
         for (int i = 0; i < imageViewArr.count; i ++) {
             
             NSDateFormatter *formatter=[[NSDateFormatter alloc]init];
@@ -416,7 +483,6 @@
         [MBProgressHUD showError:error.localizedDescription];
     }];
     
-
 }
 
 -(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
@@ -641,7 +707,6 @@
     
     self.contentW.constant = SCREEN_WIDTH;
     self.contentH.constant = 1350;
-
 
 }
 

@@ -75,6 +75,7 @@
     _ordertype = @"1";
     _infoVC = [[LBImprovePersonalDataViewController alloc] init];
     
+    
 }
 
 -(void)refreshMineCollection{
@@ -142,7 +143,7 @@
 
 //选择cell时
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
-    if ([[UserModel defaultUser].usrtype isEqualToString:ONESALER] || [[UserModel defaultUser].usrtype isEqualToString:TWOSALER] || [[UserModel defaultUser].usrtype isEqualToString:TWOSALER]) {
+    if ([[UserModel defaultUser].usrtype isEqualToString:ONESALER] || [[UserModel defaultUser].usrtype isEqualToString:TWOSALER] || [[UserModel defaultUser].usrtype isEqualToString:THREESALER]) {
         switch (indexPath.row) {
             case 0:
             {
@@ -175,10 +176,7 @@
             case 2:
             {
                 if ([[UserModel defaultUser].usrtype isEqualToString:THREESALER]) {
-                    self.hidesBottomBarWhenPushed=YES;
-                    LBRecommendedBusinessAuditViewController *vc=[[LBRecommendedBusinessAuditViewController alloc]init];
-                    [self.navigationController pushViewController:vc animated:YES];
-                    self.hidesBottomBarWhenPushed=NO;
+                    [MBProgressHUD showError:@"您暂无权限访问"];
                 }else{
                 
                     self.hidesBottomBarWhenPushed=YES;

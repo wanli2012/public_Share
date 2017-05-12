@@ -36,29 +36,29 @@
     if([model.zjl rangeOfString:@"null"].location != NSNotFound){
         model.zjl = @"0";
     }
-    if([model.love rangeOfString:@"null"].location != NSNotFound){
-        model.love = @"0";
-    }
     if([model.jl_love rangeOfString:@"null"].location != NSNotFound){
         model.jl_love = @"0";
     }
     if([model.end_love rangeOfString:@"null"].location != NSNotFound){
         model.end_love = @"0";
     }
-    if([model.end_bean rangeOfString:@"null"].location != NSNotFound){
-        model.end_bean = @"0";
-    }
-    if([model.bean rangeOfString:@"null"].location != NSNotFound){
-        model.bean = @"0";
-    }
+//    if([model.love rangeOfString:@"null"].location != NSNotFound){
+//        model.love = @"0";
+//    }
+//    if([model.end_bean rangeOfString:@"null"].location != NSNotFound){
+//        model.end_bean = @"0";
+//    }
+//    if([model.bean rangeOfString:@"null"].location != NSNotFound){
+//        model.bean = @"0";
+//    }
     
     self.consumeLabel.text = model.money;
     self.encourageSumLabel.text = model.zjl;
-    self.heartSumLabel.text = model.love;
-    self.encouragingLabel.text = model.jl_love;
-    self.jiliCompleteLabel.text = model.end_love;
-    self.daijiliLabel.text = model.bean;
-    self.finishedNumLabel.text = model.end_bean;
+    self.heartSumLabel.text = model.jl_love;
+    self.encouragingLabel.text = model.end_love;
+//    self.heartSumLabel.text = model.love;
+//    self.daijiliLabel.text = model.bean;
+//    self.finishedNumLabel.text = model.end_bean;
 
 }
 

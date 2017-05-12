@@ -18,5 +18,6 @@
 
 @property (nonatomic,copy)NSString *status;//0: 5%  1: 10%   2: 20%
 
+@property (nonatomic,copy)NSString *rl_type;
 
 @end

@@ -195,11 +195,11 @@
         _countryStrId = self.countryArr[0][@"country_code"];
         _countryStr = self.countryArr[0][@"country_name"];
         
-        [pickerView selectRow:0 inComponent:1 animated:YES];
-        [pickerView reloadComponent:1];
-        [pickerView selectRow:0 inComponent:2 animated:YES];
         
     }
+    [pickerView reloadComponent:1];
+    [pickerView reloadAllComponents];
+    [pickerView selectRow:0 inComponent:2 animated:YES];
     
     if (component == 1) {
         self.cityRow = row;

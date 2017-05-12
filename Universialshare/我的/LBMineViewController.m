@@ -75,6 +75,7 @@
     _ordertype = @"1";
     _infoVC = [[LBImprovePersonalDataViewController alloc] init];
     
+    
 }
 
 -(void)refreshMineCollection{
@@ -142,7 +143,7 @@
 
 //选择cell时
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
-    if ([[UserModel defaultUser].usrtype isEqualToString:ONESALER] || [[UserModel defaultUser].usrtype isEqualToString:TWOSALER] || [[UserModel defaultUser].usrtype isEqualToString:TWOSALER]) {
+    if ([[UserModel defaultUser].usrtype isEqualToString:ONESALER] || [[UserModel defaultUser].usrtype isEqualToString:TWOSALER] || [[UserModel defaultUser].usrtype isEqualToString:THREESALER]) {
         switch (indexPath.row) {
             case 0:
             {
@@ -175,10 +176,7 @@
             case 2:
             {
                 if ([[UserModel defaultUser].usrtype isEqualToString:THREESALER]) {
-                    self.hidesBottomBarWhenPushed=YES;
-                    LBRecommendedBusinessAuditViewController *vc=[[LBRecommendedBusinessAuditViewController alloc]init];
-                    [self.navigationController pushViewController:vc animated:YES];
-                    self.hidesBottomBarWhenPushed=NO;
+                    [MBProgressHUD showError:@"您暂无权限访问"];
                 }else{
                 
                     self.hidesBottomBarWhenPushed=YES;
@@ -535,7 +533,7 @@ minimumLineSpacingForSectionAtIndex:(NSInteger)section
             _titlearr=[NSArray arrayWithObjects:@"开通商家",@"直捐",@"开通推广员",@"兑换",@"转赠",@"我要推荐", nil];
         }
         else if ([[UserModel defaultUser].usrtype isEqualToString:THREESALER]) {
-           _titlearr=[NSArray arrayWithObjects:@"开通商家",@"直捐",@"我的米柜",@"兑换",@"转赠",@"我要推荐", nil];
+           _titlearr=[NSArray arrayWithObjects:@"开通商家",@"直捐",@"开通推广员",@"兑换",@"转赠",@"我要推荐", nil];
         }
     }
     return _titlearr;
@@ -555,7 +553,7 @@ minimumLineSpacingForSectionAtIndex:(NSInteger)section
            _imageArr=[NSArray arrayWithObjects:@"开通米商",@"直捐",@"开通推广员",@"回购",@"转赠",@"我要推荐", nil];
         }
         else if ([[UserModel defaultUser].usrtype isEqualToString:THREESALER]) {
-            _imageArr=[NSArray arrayWithObjects:@"开通米商",@"直捐",@"我的米子",@"回购",@"转赠",@"我要推荐", nil];
+            _imageArr=[NSArray arrayWithObjects:@"开通米商",@"直捐",@"开通推广员",@"回购",@"转赠",@"我要推荐", nil];
         }
     }
     return _imageArr;

@@ -22,7 +22,6 @@
 		4A0162F21EB079AB00C25DCC /* GLGoodsDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A0162F11EB079AB00C25DCC /* GLGoodsDetailModel.m */; };
 		4A0162F61EB0A10700C25DCC /* GLGoodsInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A0162F41EB0A10700C25DCC /* GLGoodsInfoCell.m */; };
 		4A0162F71EB0A10700C25DCC /* GLGoodsInfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4A0162F51EB0A10700C25DCC /* GLGoodsInfoCell.xib */; };
-		4A0162FA1EB0B6CE00C25DCC /* GLConfirmOrderModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A0162F91EB0B6CE00C25DCC /* GLConfirmOrderModel.m */; };
 		4A0162FE1EB0B90800C25DCC /* GLOrderGoodsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A0162FC1EB0B90800C25DCC /* GLOrderGoodsCell.m */; };
 		4A0162FF1EB0B90800C25DCC /* GLOrderGoodsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4A0162FD1EB0B90800C25DCC /* GLOrderGoodsCell.xib */; };
 		4A07A86D1EA0571E005A9B67 /* GLBuyBackChooseBankView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A07A86C1EA0571E005A9B67 /* GLBuyBackChooseBankView.m */; };
@@ -92,6 +91,7 @@
 		4A203DDF1E9F8D8300DF22F7 /* GLReceiveBeansModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A203DDE1E9F8D8300DF22F7 /* GLReceiveBeansModel.m */; };
 		4A203DE31E9F8E0D00DF22F7 /* GLReceiveBeansCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A203DE11E9F8E0D00DF22F7 /* GLReceiveBeansCell.m */; };
 		4A203DE41E9F8E0D00DF22F7 /* GLReceiveBeansCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4A203DE21E9F8E0D00DF22F7 /* GLReceiveBeansCell.xib */; };
+		4A2F52351EC70BBA00ECA95D /* GLConfirmOrderModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A2F52341EC70BBA00ECA95D /* GLConfirmOrderModel.m */; };
 		4A3E60881EAD8CC8000E2E17 /* GLSubmitFirstController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A3E60841EAD8CC8000E2E17 /* GLSubmitFirstController.m */; };
 		4A3E60891EAD8CC8000E2E17 /* GLSubmitFirstController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4A3E60851EAD8CC8000E2E17 /* GLSubmitFirstController.xib */; };
 		4A3E608D1EAD97E6000E2E17 /* GLSubmitSecondController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A3E608B1EAD97E6000E2E17 /* GLSubmitSecondController.m */; };
@@ -818,8 +818,6 @@
 		4A0162F31EB0A10700C25DCC /* GLGoodsInfoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLGoodsInfoCell.h; sourceTree = "<group>"; };
 		4A0162F41EB0A10700C25DCC /* GLGoodsInfoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLGoodsInfoCell.m; sourceTree = "<group>"; };
 		4A0162F51EB0A10700C25DCC /* GLGoodsInfoCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GLGoodsInfoCell.xib; sourceTree = "<group>"; };
-		4A0162F81EB0B6CE00C25DCC /* GLConfirmOrderModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GLConfirmOrderModel.h; path = "Universialshare/商城首页/衣食住行/View/GLConfirmOrderModel.h"; sourceTree = SOURCE_ROOT; };
-		4A0162F91EB0B6CE00C25DCC /* GLConfirmOrderModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GLConfirmOrderModel.m; path = "Universialshare/商城首页/衣食住行/View/GLConfirmOrderModel.m"; sourceTree = SOURCE_ROOT; };
 		4A0162FB1EB0B90800C25DCC /* GLOrderGoodsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLOrderGoodsCell.h; sourceTree = "<group>"; };
 		4A0162FC1EB0B90800C25DCC /* GLOrderGoodsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLOrderGoodsCell.m; sourceTree = "<group>"; };
 		4A0162FD1EB0B90800C25DCC /* GLOrderGoodsCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GLOrderGoodsCell.xib; sourceTree = "<group>"; };
@@ -928,6 +926,8 @@
 		4A203DE01E9F8E0D00DF22F7 /* GLReceiveBeansCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLReceiveBeansCell.h; sourceTree = "<group>"; };
 		4A203DE11E9F8E0D00DF22F7 /* GLReceiveBeansCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLReceiveBeansCell.m; sourceTree = "<group>"; };
 		4A203DE21E9F8E0D00DF22F7 /* GLReceiveBeansCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GLReceiveBeansCell.xib; sourceTree = "<group>"; };
+		4A2F52331EC70BBA00ECA95D /* GLConfirmOrderModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLConfirmOrderModel.h; sourceTree = "<group>"; };
+		4A2F52341EC70BBA00ECA95D /* GLConfirmOrderModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLConfirmOrderModel.m; sourceTree = "<group>"; };
 		4A3E60831EAD8CC8000E2E17 /* GLSubmitFirstController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLSubmitFirstController.h; sourceTree = "<group>"; };
 		4A3E60841EAD8CC8000E2E17 /* GLSubmitFirstController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLSubmitFirstController.m; sourceTree = "<group>"; };
 		4A3E60851EAD8CC8000E2E17 /* GLSubmitFirstController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GLSubmitFirstController.xib; sourceTree = "<group>"; };
@@ -2348,7 +2348,7 @@
 			isa = PBXGroup;
 			children = (
 				4A0D973B1E9729C100A26B84 /* Controller */,
-				4A0D97421E9729C100A26B84 /* Model */,
+				4A2F52321EC70BBA00ECA95D /* Model */,
 				4A0D97431E9729C100A26B84 /* View */,
 			);
 			path = "订单";
@@ -2365,15 +2365,6 @@
 				4A0D97411E9729C100A26B84 /* GLOrderDetailController.xib */,
 			);
 			path = Controller;
-			sourceTree = "<group>";
-		};
-		4A0D97421E9729C100A26B84 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				4A0162F81EB0B6CE00C25DCC /* GLConfirmOrderModel.h */,
-				4A0162F91EB0B6CE00C25DCC /* GLConfirmOrderModel.m */,
-			);
-			path = Model;
 			sourceTree = "<group>";
 		};
 		4A0D97431E9729C100A26B84 /* View */ = {
@@ -2424,6 +2415,15 @@
 				4A0D975F1E9729C100A26B84 /* GLTopCell.xib */,
 			);
 			path = "首页";
+			sourceTree = "<group>";
+		};
+		4A2F52321EC70BBA00ECA95D /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				4A2F52331EC70BBA00ECA95D /* GLConfirmOrderModel.h */,
+				4A2F52341EC70BBA00ECA95D /* GLConfirmOrderModel.m */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		4A3E60811EAD8CC8000E2E17 /* 提交商户 */ = {
@@ -5501,7 +5501,6 @@
 				F9126EF11EA0B042004785EA /* LBMineSystemMessageViewController.m in Sources */,
 				4A4610671E9CC6360045824F /* ZXURLTOResultParser.m in Sources */,
 				F966B4091EACA3FA007260FC /* LBMyBusinessListDetailTableViewCell.m in Sources */,
-				4A0162FA1EB0B6CE00C25DCC /* GLConfirmOrderModel.m in Sources */,
 				4A4609D81E9CB78E0045824F /* GLRecommendRecordController.m in Sources */,
 				4A46110B1E9CC6370045824F /* ZXQRCodeFinderPattern.m in Sources */,
 				F92309381E9B8BFF00ECDC94 /* LBMineCenterFlyNoticeDetailOneTableViewCell.m in Sources */,
@@ -5921,6 +5920,7 @@
 				F92309651E9B8BFF00ECDC94 /* XBConst.m in Sources */,
 				4A4610441E9CC6360045824F /* ZXAztecSimpleToken.m in Sources */,
 				4A4609DF1E9CB78E0045824F /* GLTweleveFourController.m in Sources */,
+				4A2F52351EC70BBA00ECA95D /* GLConfirmOrderModel.m in Sources */,
 				4A4610F91E9CC6370045824F /* ZXPDF417HighLevelEncoder.m in Sources */,
 				F92309321E9B8BFF00ECDC94 /* LBMineMessageHotPickViewController.m in Sources */,
 				4A4609D31E9CB78E0045824F /* GLBuyBackRecord_FinishController.m in Sources */,

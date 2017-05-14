@@ -51,29 +51,42 @@
 #pragma mark - get data
 -(void)getPickerData {
     
-    _loadV=[LoadWaitView addloadview:[UIScreen mainScreen].bounds tagert:[UIApplication sharedApplication].keyWindow];
-    [NetworkManager requestPOSTWithURLStr:@"user/getCityList" paramDic:@{} finish:^(id responseObject) {
-        [_loadV removeloadview];
-        if ([responseObject[@"code"] integerValue]==1) {
-            self.dataArr = responseObject[@"data"];
-            self.cityArr = self.dataArr[0][@"city"];
-            self.countryArr = self.dataArr[0][@"city"][0][@"country"];
-            
-            _provinceStrId = self.dataArr[0][@"province_code"];
-            _provinceStr = self.dataArr[0][@"province_name"];
-            _cityStrId = self.cityArr[0][@"city_code"];
-            _cityStr = self.cityArr[0][@"city_name"];
-            _countryStrId = self.countryArr[0][@"country_code"];
-            _countryStr = self.countryArr[0][@"country_name"];
-            
-            [self.pickerview reloadAllComponents];
-        }
-        
-    } enError:^(NSError *error) {
-        [_loadV removeloadview];
-        [MBProgressHUD showError:error.localizedDescription];
-        
-    }];
+    self.cityArr = self.dataArr[0][@"city"];
+    self.countryArr = self.dataArr[0][@"city"][0][@"country"];
+    
+    _provinceStrId = self.dataArr[0][@"province_code"];
+    _provinceStr = self.dataArr[0][@"province_name"];
+    _cityStrId = self.cityArr[0][@"city_code"];
+    _cityStr = self.cityArr[0][@"city_name"];
+    _countryStrId = self.countryArr[0][@"country_code"];
+    _countryStr = self.countryArr[0][@"country_name"];
+    
+    [self.pickerview reloadAllComponents];
+
+    
+//    _loadV=[LoadWaitView addloadview:[UIScreen mainScreen].bounds tagert:[UIApplication sharedApplication].keyWindow];
+//    [NetworkManager requestPOSTWithURLStr:@"user/getCityList" paramDic:@{} finish:^(id responseObject) {
+//        [_loadV removeloadview];
+//        if ([responseObject[@"code"] integerValue]==1) {
+//            self.dataArr = responseObject[@"data"];
+//            self.cityArr = self.dataArr[0][@"city"];
+//            self.countryArr = self.dataArr[0][@"city"][0][@"country"];
+//            
+//            _provinceStrId = self.dataArr[0][@"province_code"];
+//            _provinceStr = self.dataArr[0][@"province_name"];
+//            _cityStrId = self.cityArr[0][@"city_code"];
+//            _cityStr = self.cityArr[0][@"city_name"];
+//            _countryStrId = self.countryArr[0][@"country_code"];
+//            _countryStr = self.countryArr[0][@"country_name"];
+//            
+//            [self.pickerview reloadAllComponents];
+//        }
+//        
+//    } enError:^(NSError *error) {
+//        [_loadV removeloadview];
+//        [MBProgressHUD showError:error.localizedDescription];
+//        
+//    }];
     
 }
 
@@ -194,7 +207,6 @@
         _cityStr = self.cityArr[0][@"city_name"];
         _countryStrId = self.countryArr[0][@"country_code"];
         _countryStr = self.countryArr[0][@"country_name"];
-        
         
     }
     [pickerView reloadComponent:1];

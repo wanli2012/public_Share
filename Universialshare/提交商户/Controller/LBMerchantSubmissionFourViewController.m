@@ -110,7 +110,7 @@
     [NetworkManager requestPOSTWithURLStr:@"user/getHylist" paramDic:dict finish:^(id responseObject) {
 //        [_loadV removeloadview];
 //        NSLog(@"dict = %@",dict);
-        NSLog(@"responseObject = %@",responseObject);
+//        NSLog(@"responseObject = %@",responseObject);
         if ([responseObject[@"code"] integerValue]==1) {
             self.industryArr = responseObject[@"data"];
         }else{
@@ -147,9 +147,12 @@
         //        self.sprovince = pro;
         //        self.scity =city;
         //        self.saera = area;
-        self.latStr = [NSString stringWithFormat:@"%f",coors.latitude];
-        self.longStr = [NSString stringWithFormat:@"%f",coors.longitude];
-        self.maplb.text = [NSString stringWithFormat:@"%@",strposition];
+        if(strposition != nil ){
+            
+            self.latStr = [NSString stringWithFormat:@"%f",coors.latitude];
+            self.longStr = [NSString stringWithFormat:@"%f",coors.longitude];
+            self.maplb.text = [NSString stringWithFormat:@"%@",strposition];
+        }
     };
     [self.navigationController pushViewController:mapVC animated:YES];
 
@@ -217,7 +220,7 @@
 - (IBAction)chooseAdressEvent:(UITapGestureRecognizer *)sender {
     self.chooseType = @"adress";
     LBMineCenterChooseAreaViewController *vc=[[LBMineCenterChooseAreaViewController alloc]init];
-//    vc.dataArr = self.dataArr;
+    vc.dataArr = self.dataArr;
     vc.transitioningDelegate=self;
     vc.modalPresentationStyle=UIModalPresentationCustom;
     
@@ -316,27 +319,7 @@
 //        [MBProgressHUD showError:@"请上传法人手持证件照"];
 //        return;
 //    }
-//    @property (weak, nonatomic) IBOutlet UITextField *storeName;//店名
-//    //营业执照
-//    @property (weak, nonatomic) IBOutlet UITextField *codeTf;
-//    //地图
-//    @property (weak, nonatomic) IBOutlet UILabel *maplb;
-//    //门牌
-//    @property (weak, nonatomic) IBOutlet UITextField *doorNumbersTf;
-//    //法人姓名
-//    @property (weak, nonatomic) IBOutlet UITextField *bossNametf;
-//    //法人电话
-//    @property (weak, nonatomic) IBOutlet UITextField *bossPhoneTf;
-//    //联系人名字
-//    @property (weak, nonatomic) IBOutlet UITextField *connectName;
-//    //联系人电话
-//    @property (weak, nonatomic) IBOutlet UITextField *connectPhoneTf;
-//    //店铺类型一
-//    @property (weak, nonatomic) IBOutlet UILabel *industryOneLb;
-//    //店铺类型二
-//    @property (weak, nonatomic) IBOutlet UILabel *industrySecLb;
-//    //省市区地址
-//    @property (weak, nonatomic) IBOutlet UILabel *adressLb;
+
     
     if (self.storeName.text.length <= 0) {
         [MBProgressHUD showError:@"请输入店名"];
@@ -365,6 +348,9 @@
     if (self.bossPhoneTf.text.length <= 0) {
         [MBProgressHUD showError:@"请输入法人电话"];
         return;
+    }else if (![predicateModel valiMobile:self.bossPhoneTf.text]){
+        [MBProgressHUD showError:@"法人手机号不合法"];
+        return;
     }
     if (self.connectName.text.length <= 0) {
         [MBProgressHUD showError:@"请输入联系人姓名"];
@@ -372,6 +358,9 @@
     }
     if (self.connectPhoneTf.text.length <= 0) {
         [MBProgressHUD showError:@"请输入联系人电话"];
+        return;
+    }else if (![predicateModel valiMobile:self.connectPhoneTf.text]){
+        [MBProgressHUD showError:@"联系人手机号不合法"];
         return;
     }
     if ([self.industrySecLb.text isEqualToString:@"选择"]) {
@@ -637,7 +626,7 @@
         return NO;
     }
     
-    if (textField == self.bossPhoneTf || textField == self.connectPhoneTf) {
+    if (textField == self.bossPhoneTf || textField == self.connectPhoneTf || textField == self.codeTf) {
        return [self validateNumber:string];
       
     }

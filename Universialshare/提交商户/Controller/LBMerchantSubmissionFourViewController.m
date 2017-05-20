@@ -425,7 +425,7 @@
     dict[@"lat"] = self.latStr;//纬度
     dict[@"lng"] = self.longStr;//经度
   
-    NSArray *imageViewArr = [NSArray arrayWithObjects:self.positiveImage,self.otherSideImage,self.licenseImage,self.undertakingOne,self.undertakingTwo,self.doorplateImage,self.InteriorImage,self.InteriorOneImage,self.DoorplateOneimage ,nil];
+    NSArray *imageViewArr = [NSArray arrayWithObjects:self.positiveImage,self.otherSideImage,self.licenseImage,self.undertakingOne,self.doorplateImage,self.InteriorImage,self.InteriorOneImage,self.DoorplateOneimage,self.undertakingTwo ,nil];
     
     NSArray *titleArr = [NSArray arrayWithObjects:@"face_pic",@"con_pic",@"license_pic",@"promise_pic",@"store_pic",@"store_one",@"store_two",@"store_three",@"tg_pic", nil];
 

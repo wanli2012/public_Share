@@ -24,7 +24,7 @@
 #define ADAPT(x) SCREEN_WIDTH / 375 *(x)
 
 //#define URL_Base @"http://192.168.0.108/DZGX/index.php/api/"
-#define URL_Base @"https://www.51dztg.com/index.php/api/"
+#define URL_Base @"http://dzgx.joshuaweb.cn/app/"
 
 #define DOWNLOAD_URL @"https://itunes.apple.com/cn/app/id1228047806?mt=8"
 //米家

@@ -425,7 +425,7 @@
     dict[@"lat"] = self.latStr;//纬度
     dict[@"lng"] = self.longStr;//经度
   
-    NSArray *imageViewArr = [NSArray arrayWithObjects:self.positiveImage,self.otherSideImage,self.licenseImage,self.undertakingOne,self.undertakingTwo,self.doorplateImage,self.InteriorImage,self.InteriorOneImage,self.DoorplateOneimage ,nil];
+    NSArray *imageViewArr = [NSArray arrayWithObjects:self.positiveImage,self.otherSideImage,self.licenseImage,self.undertakingOne,self.doorplateImage,self.InteriorImage,self.InteriorOneImage,self.DoorplateOneimage,self.undertakingTwo ,nil];
     
     NSArray *titleArr = [NSArray arrayWithObjects:@"face_pic",@"con_pic",@"license_pic",@"promise_pic",@"store_pic",@"store_one",@"store_two",@"store_three",@"tg_pic", nil];
 
@@ -450,10 +450,11 @@
         }
         
     }progress:^(NSProgress *uploadProgress){
+        
+        [SVProgressHUD showProgress:uploadProgress.fractionCompleted status:[NSString stringWithFormat:@"上传中%.0f%%",(uploadProgress.fractionCompleted * 100)]];
         [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeClear];
         [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
         [SVProgressHUD setCornerRadius:8.0];
-        [SVProgressHUD showProgress:uploadProgress.fractionCompleted status:[NSString stringWithFormat:@"上传中%.0f%%",(uploadProgress.fractionCompleted * 100)]];
         
     }success:^(NSURLSessionDataTask *task, id responseObject) {
         [SVProgressHUD dismiss];

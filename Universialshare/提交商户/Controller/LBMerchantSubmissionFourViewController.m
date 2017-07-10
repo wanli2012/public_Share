@@ -227,8 +227,8 @@
     [self presentViewController:vc animated:YES completion:nil];
     __weak typeof(self) weakself = self;
     vc.returnreslut = ^(NSString *str,NSString *strid,NSString *provinceid,NSString *cityd,NSString *areaid){
-        weakself.provinceStrId = strid;
         weakself.adressLb.text = str;
+        weakself.provinceStrId = provinceid;
         weakself.cityStrId = cityd;
         weakself.countryStrId = areaid;
     };
@@ -421,6 +421,7 @@
     dict[@"truename"] = self.connectName.text;//登录手机号
     dict[@"phone"] = self.connectPhoneTf.text;//真实姓名
     dict[@"trade_id"] = _industryArr[_isChoseFirstClassify][@"son"][_isChoseSecondClassify][@"trade_id"];
+    dict[@"two_trade_id"] = _industryArr[_isChoseFirstClassify][@"son"][_isChoseSecondClassify][@"trade_id"];
 
     dict[@"lat"] = self.latStr;//纬度
     dict[@"lng"] = self.longStr;//经度
@@ -429,6 +430,7 @@
     
     NSArray *titleArr = [NSArray arrayWithObjects:@"face_pic",@"con_pic",@"license_pic",@"promise_pic",@"store_pic",@"store_one",@"store_two",@"store_three",@"tg_pic", nil];
 
+    NSLog(@"%@",dict);
     _loadV=[LoadWaitView addloadview:[UIScreen mainScreen].bounds tagert:self.view];
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];//响应
@@ -462,7 +464,7 @@
         if ([dic[@"code"]integerValue]==1) {
             
             [MBProgressHUD showError:dic[@"message"]];
-            //[self.navigationController popToRootViewControllerAnimated:YES];
+//            [self.navigationController popToRootViewControllerAnimated:YES];
         }else{
             [MBProgressHUD showError:dic[@"message"]];
         }
@@ -696,7 +698,7 @@
     self.chooseAdressV.clipsToBounds = YES;
     
     self.contentW.constant = SCREEN_WIDTH;
-    self.contentH.constant = 1350;
+    self.contentH.constant = 1400;
 
 }
 
